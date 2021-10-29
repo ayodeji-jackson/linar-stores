@@ -5,11 +5,14 @@
     --vertical-padding: 1vw;
     --primary-color: hsl(269, 75.4%, 49.4%);
     --light-primary-color: hsl(269, 75.4%, 80%);
+    --lighter-primary-color: hsl(269, 75.4%, 90%);
     --dark-primary-color: hsl(269, 75.4%, 20%);
     --secondary-color: hsl(351.6, 69.4%, 49.4%);
     --light-secondary-color: hsl(351.6, 69.4%, 80%);
     --dark-secondary-color: hsl(351.6, 69.4%, 20%);
-    --box-shadow: 0 .5em 1em hsla(0, 0%, 0%, 0.295);
+    --box-shadow: 0 .5em 1em hsla(0, 0%, 0%, 0.116);
+    --grey: #aaaaaa;
+    --button-border-radius: .4em;
 }
 @media (max-width: 39em) {
     :root {
@@ -19,6 +22,9 @@
 @media (max-width: 27em) {
     :root {
         --horizontal-padding: 3vw;
+    }
+    span.close {
+        position: initial;
     }
 }
 @media (max-width: 22em) {
@@ -33,18 +39,22 @@
 }
 body { 
     font-size: var(--font-size);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Noto Sans';
     color: white;
 }
 button {
-    background-color: var(--secondary-color);
+    background-color: var(--dark-primary-color);
     color: inherit;
     border: 0;
-    border-radius: .5em;
+    border-radius: var(--button-border-radius);
     padding: .8em 1em;
     font: inherit;
     box-shadow: var(--box-shadow);
+    transition: background-color .2s ease;
     cursor: pointer;
+}
+button:hover {
+    background-color: var(--primary-color);
 }
 input {
     font: inherit;
@@ -66,10 +76,13 @@ a:hover {
 
 header {
     padding: var(--vertical-padding) var(--horizontal-padding); 
-    background-color: var(--primary-color);  
+    background-color: var(--light-primary-color);
 }
 .notification {
     display: flex;
+    gap: 1em;
+    font-size: calc(var(--font-size) * .9);
+    max-height: 100px;
     align-items: center;
 }
 .notification-link {
@@ -81,10 +94,27 @@ header {
 .notification-button:hover .notification-link {
     text-decoration: underline;
 }
+.close {
+    position: absolute;
+    color: #eeeeee;
+    cursor: pointer;
+    font-size: calc(var(--font-size) + 1vw);
+    right: calc(var(--horizontal-padding) / 4);
+}
+.hidden {
+    --vertical-padding: 0;
+    max-height: 0;
+    transition: max-height .2s linear,
+                padding .2s linear;
+}
 
 nav {
-    background-color: var(--light-primary-color);
+    background-color: var(--lighter-primary-color);
+    box-shadow: 0 -.1em 1em hsla(0, 0%, 0%, 0.116);
+    position: sticky;
+    top: 0;
     display: flex;
+    gap: 1em;
     align-items: center;
     padding: var(--vertical-padding) var(--horizontal-padding);
     width: 100%;
@@ -104,10 +134,14 @@ nav {
 }
 button.allProducts {
     border-top-right-radius: 0;
+    width: 25%;
     border-bottom-right-radius: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .searchBar input {
-    border-radius: 0 .5em .5em 0;
+    border-radius: 0 var(--button-border-radius) var(--button-border-radius) 0;
     width: calc(var(--horizontal-padding) + 22vw);
     border: 1px solid transparent;
     padding: 0 3em 0 1em;
@@ -121,6 +155,7 @@ button.allProducts {
 }
 nav > ul {
     flex: 1.5;
+    color: black;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -134,6 +169,8 @@ nav > ul li:first-child {
 }
 .cartItems {
     display: inline-block;
+    color: white;
+    font-size: calc(var(--font-size) * .8);
     margin-left: .3em;
     font-weight: bold;
     border-radius: 50%;
@@ -141,19 +178,29 @@ nav > ul li:first-child {
     width: calc(var(--font-size) * 1.5);
     text-align: center;
     padding: calc(var(--font-size) * 0.2);
-    background-color: var(--secondary-color);
+    background-color: var(--dark-primary-color);
     box-shadow: var(--box-shadow);
 } /* All the calc()s makes it responsive */
 
-@media (max-width: 19.375em) {
-    nav {
+@media (max-width: 20.625em) {
+    .notification, nav {
         flex-direction: column;
     }
-    nav > * {
-        margin-bottom: 1em;
+    .notification-button {
+        margin: 0;
+    }
+    .close {
+        font-size: 1rem;
+    }
+    .searchBar button.allProducts {
+        width: 37%;
+    }
+    .searchBar input {
+        width: 50%;
     }
     nav > ul {
         justify-content: center;
+        gap: 2em;
     } 
     nav > ul li:first-child {
         overflow: initial;
@@ -201,14 +248,17 @@ main {
     padding: var(--vertical-padding) var(--horizontal-padding)
 }
 main button {
-    background-color: var(--light-secondary-color);
+    background-color: white;
 }
 section {
     display: flex;
     margin: 2em 0;
-    justify-content: space-around;
+    gap: 2em;
 }
 
+.category-section {
+    flex-wrap: wrap;
+}
 .category {
     background-color: #eeeeee;
     padding: 1.5em;
@@ -219,13 +269,58 @@ section {
 }
 .category > p {
     margin: .5em 0 2em;
+    color: grey;
 }
 .category-button {
-    width: 14vw;
+    width: max(55px, 12vw);
+    font-size: calc(var(--font-size) / 1.2);
+    font-weight: 550;
     margin-top: auto;
 }
-@media (max-width: 16.875em) {
-    .category:last-child {
-        visibility: hidden;
-    }
+.category-button:hover {
+    background-color: var(--grey);
+}
+
+.product-section {
+    justify-content: flex-start;
+}
+.product {
+    width: calc(var(--font-size) * 18);
+    box-shadow: var(--box-shadow);
+    border-radius: .5em;
+    padding: 1.5em;
+    margin-right: 2em;
+}
+.product * {
+    margin-bottom: 1em;
+}
+.product-category {
+    text-transform: uppercase;
+    color: var(--grey);
+    font-size: calc(var(--font-size) / 1.2);
+}
+.product-name {
+    margin: 0;
+}
+.rating-number {
+    font-weight: bold;
+}
+.product-discountPrice {
+    font-size: calc(var(--font-size) * 1.7);
+    font-weight: bold;
+}
+.product-actualPrice {
+    color: var(--grey);
+    text-decoration: line-through;
+    margin-left: 1em;
+}
+.fa-star {
+    color: goldenrod;
+    margin: 0 .2em 0 0;
+}
+.grey-star {
+    color: #dddddd;
+}
+.grey {
+    color: var(--grey);
 }
