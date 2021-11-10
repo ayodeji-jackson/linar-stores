@@ -1,0 +1,24 @@
+.flickity-button {
+    transition: background-color .2 ease;
+}
+.flickity-button:hover {
+    background-color: var(--lighter-primary-color);
+}
+.flickity-prev-next-button {
+    height: 2em;
+    width: 2em;
+}
+.flickity-button-icon {
+    fill: var(--dark-primary-color);
+}
+.flickity-prev-next-button.previous {
+    left: -1vw;
+}
+.flickity-prev-next-button.next {
+    right: -1vw;
+}
+.flickity-page-dots .dot {
+    width: .4em;
+    height: .4em;
+    background-color: var(--dark-primary-color);
+}

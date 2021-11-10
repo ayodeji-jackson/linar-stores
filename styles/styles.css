@@ -1,3 +1,5 @@
+@import url('carousel.css');
+
 :root {
     box-sizing: border-box;
     --font-size: min(1vw + .3rem, 1rem);
@@ -118,6 +120,7 @@ nav {
     align-items: center;
     padding: var(--vertical-padding) var(--horizontal-padding);
     width: 100%;
+    z-index: 5;
 }
 .logo {
     width: 10vw;
@@ -155,6 +158,8 @@ button.allProducts {
 }
 nav > ul {
     flex: 1.5;
+    white-space: nowrap;
+    gap: 1em;
     color: black;
     display: flex;
     justify-content: flex-end;
@@ -162,10 +167,16 @@ nav > ul {
     list-style-type: none;
 }
 nav > ul li:first-child {
-    white-space: nowrap;
-    overflow: hidden;
     flex: .7;
-    text-overflow: ellipsis;
+}
+.cart {
+    position: absolute;
+    background-color: white;
+    border-radius: var(--button-border-radius);
+    box-shadow: var(--box-shadow);
+    right: calc(var(--horizontal-padding) - 1em);
+    height: 50vh;
+    width: 25vw;
 }
 .cartItems {
     display: inline-block;
@@ -198,18 +209,11 @@ nav > ul li:first-child {
     .searchBar input {
         width: 50%;
     }
-    nav > ul {
-        justify-content: center;
-        gap: 2em;
-    } 
-    nav > ul li:first-child {
-        overflow: initial;
-    }
 }
 
 .hero {
     padding: 4em var(--horizontal-padding);
-    background: url("/img/hero_image.jpg") no-repeat;
+    background: url('../images/hero_image.jpg') no-repeat;
     background-size: cover;
 }
 .hero > * + * {
@@ -251,18 +255,18 @@ main button {
     background-color: white;
 }
 section {
-    display: flex;
     margin: 2em 0;
-    gap: 2em;
+}
+.section-heading {
+    margin-top: 2em;
 }
 
-.category-section {
-    flex-wrap: wrap;
-}
 .category {
     background-color: #eeeeee;
     padding: 1.5em;
-    flex-basis: 30%;
+    width: 20em;
+    height: 15em;
+    margin-right: 3%;
     display: flex;
     flex-direction: column;
     border-radius: 1em;
@@ -276,20 +280,19 @@ section {
     font-size: calc(var(--font-size) / 1.2);
     font-weight: 550;
     margin-top: auto;
+    padding: 1em;
 }
 .category-button:hover {
-    background-color: var(--grey);
+    background-color: var(--lighter-primary-color);
 }
 
-.product-section {
-    justify-content: flex-start;
-}
 .product {
-    width: calc(var(--font-size) * 18);
+    width: calc(var(--font-size) * 17);
     box-shadow: var(--box-shadow);
     border-radius: .5em;
     padding: 1.5em;
-    margin-right: 2em;
+    margin: .5em;
+    min-height: 20em;
 }
 .product * {
     margin-bottom: 1em;
@@ -324,3 +327,4 @@ section {
 .grey {
     color: var(--grey);
 }
+
