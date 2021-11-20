@@ -1,18 +1,33 @@
+const prices = document.querySelectorAll('.price');
 const notificationBar = document.querySelector('.notification');
-
-if (localStorage.getItem("notification") == "hidden") {
-    notificationBar.classList.add('hidden');
-}
+const cartButton = document.querySelector('.cart-button');
+const cart = document.querySelector('.cart');
+const progressBarContainer = document.querySelector('.progressbar-container');
+const progressBar = document.querySelector('.progressbar');
 
 document.querySelector('.close').addEventListener('mousedown', () => {
-    notificationBar.classList.add('hidden');
+    notificationBar.classList.add('notification-hidden');
     notificationBar.setAttribute('aria-hidden', 'true');
-    localStorage.setItem("notification", "hidden");
 });
 
-const prices = document.querySelectorAll('.price');
 for (let price of prices) {
     price.textContent = '₦' + Number(price.textContent).toLocaleString();
 }
 
-document.querySelector('.cart').style.setProperty('top', `calc(${notificationBar.scrollHeight}px + 3em)`);
+cart.style.setProperty('top', `${(cartButton.getBoundingClientRect().bottom + 10) - notificationBar.offsetHeight}px`);
+cart.style.setProperty('right', `${window.innerWidth - cartButton.getBoundingClientRect().right - 5}px`);
+
+cartButton.addEventListener('click', (event) => {
+    cart.classList.toggle('closed');
+    event.stopPropagation();
+});
+document.querySelector('body:not(.cart)').addEventListener('click', (event) => {
+    if (!(event.target == cart)) cart.classList.add('closed');
+});
+
+let progressBarVal = progressBar.getAttribute('aria-valuenow');
+
+progressBarContainer.style.setProperty('--width', `${(progressBarVal / 100) * progressBar.clientWidth}px`);
+if (progressBarVal >= 60) progressBarContainer.style.setProperty('--backgroundColor', 'green');
+else if (progressBarVal <= 20) progressBarContainer.style.setProperty('--backgroundColor', 'red');
+else progressBarContainer.style.setProperty('--backgroundColor', 'orange');

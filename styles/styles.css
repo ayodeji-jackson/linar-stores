@@ -51,13 +51,23 @@ button {
     border-radius: var(--button-border-radius);
     padding: .8em 1em;
     font: inherit;
-    box-shadow: var(--box-shadow);
-    transition: background-color .2s ease;
+    position: relative;
+    /* box-shadow: var(--box-shadow); */ /* the button can't have a box-shadow because of the hover effect. the box-shadow is applied to its ::after pseudo element.*/
     cursor: pointer;
+    transition: box-shadow .5s;
 }
-button:hover {
-    background-color: var(--primary-color);
+button:hover, button:focus {
+    box-shadow: inset 20em 0 0 0 var(--light-secondary-color);
 }
+button::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%; width: 100%;
+    box-shadow: var(--box-shadow);
+    border-radius: inherit;
+}
+
 input {
     font: inherit;
     box-shadow: var(--box-shadow);
@@ -75,6 +85,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
 
 header {
     padding: var(--vertical-padding) var(--horizontal-padding); 
@@ -103,11 +114,11 @@ header {
     font-size: calc(var(--font-size) + 1vw);
     right: calc(var(--horizontal-padding) / 4);
 }
-.hidden {
+.notification-hidden {
     --vertical-padding: 0;
     max-height: 0;
     transition: max-height .2s linear,
-                padding .2s linear;
+                padding .25s linear;
 }
 
 nav {
@@ -166,6 +177,13 @@ nav > ul {
     align-items: center;
     list-style-type: none;
 }
+nav > ul li {
+    cursor: pointer;
+    transition: color .2s linear;
+}
+nav > ul li:hover {
+    color: var(--dark-secondary-color);
+}
 nav > ul li:first-child {
     flex: .7;
 }
@@ -174,9 +192,20 @@ nav > ul li:first-child {
     background-color: white;
     border-radius: var(--button-border-radius);
     box-shadow: var(--box-shadow);
-    right: calc(var(--horizontal-padding) - 1em);
-    height: 50vh;
-    width: 25vw;
+    height: calc(var(--font-size) * 20);
+    width: calc(var(--font-size) * 14);
+}
+/* triangle */
+.cart::after {
+    content: "";
+    position: absolute;
+    right: .5em; top: calc(var(--font-size) * -1);
+    border: .5em solid;
+    border-color: transparent transparent white;
+}
+
+.closed {
+    display: none;
 }
 .cartItems {
     display: inline-block;
@@ -215,6 +244,7 @@ nav > ul li:first-child {
     padding: 4em var(--horizontal-padding);
     background: url('../images/hero_image.jpg') no-repeat;
     background-size: cover;
+    height: 50vh;
 }
 .hero > * + * {
     margin: .5em 0 0;
@@ -235,6 +265,10 @@ nav > ul li:first-child {
     background-image: linear-gradient(45deg, var(--light-primary-color), var(--light-secondary-color));
     color: var(--dark-secondary-color);
 }
+.hero-button:hover, .hero-button:focus {
+    box-shadow: inset 20em 0 0 0 var(--dark-primary-color);
+    color: white;
+}
 @media (min-width: 35em) {
     .hero {
         padding-top: 5em;
@@ -244,6 +278,7 @@ nav > ul li:first-child {
     .hero {
         padding-top: 7em;
         padding-bottom: 7em;
+        height: 75vh;
     }
 }
 
@@ -264,7 +299,7 @@ section {
 .category {
     background-color: #eeeeee;
     padding: 1.5em;
-    width: 20em;
+    width: calc(var(--font-size) * 23);
     height: 15em;
     margin-right: 3%;
     display: flex;
@@ -281,9 +316,12 @@ section {
     font-weight: 550;
     margin-top: auto;
     padding: 1em;
+    z-index: 10;
 }
-.category-button:hover {
-    background-color: var(--lighter-primary-color);
+.category-image {
+    height: 50%;
+    position: absolute;
+    right: 1em; bottom: 1em;
 }
 
 .product {
@@ -294,9 +332,10 @@ section {
     margin: .5em;
     min-height: 20em;
 }
-.product * {
+.product > * {
     margin-bottom: 1em;
 }
+
 .product-category {
     text-transform: uppercase;
     color: var(--grey);
@@ -328,3 +367,33 @@ section {
     color: var(--grey);
 }
 
+.progressbar-container {
+    margin-top: 1em;
+    margin-bottom: 0;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    --width: 0;
+    --backgroundColor: inherit;
+}
+.progressbar {
+    width: 15%;
+    background-color: #dddddd;
+    height: 5px;
+    border-radius: 25%;
+    position: relative;
+}
+.progressbar::before {
+    content: '';
+    height: 100%;
+    top: 0; left: 0;
+    position: absolute; border-radius: inherit;
+    width: var(--width); background-color: var(--backgroundColor);
+}
+.qty-available {
+    color: var(--backgroundColor);
+    font-size: calc(var(--font-size) * .8);
+}
+.num-qty-available {
+    font-weight: bold;
+}

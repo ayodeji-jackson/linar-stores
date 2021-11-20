@@ -1,9 +1,3 @@
-.flickity-button {
-    transition: background-color .2 ease;
-}
-.flickity-button:hover {
-    background-color: var(--lighter-primary-color);
-}
 .flickity-prev-next-button {
     height: 2em;
     width: 2em;

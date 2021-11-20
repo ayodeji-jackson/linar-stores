@@ -36,7 +36,7 @@ $product_array = $product_table->readAll("Product");
             
             foreach ($category_array as $category) {
                 echo "<div class='category cell-carousel'>
-                        <img class='category-image' alt='" . $category['Category_Name'] . "' />
+                        <img class='category-image' alt='" . $category['Category_Name'] . "' src='images/" . $category['Category_Image_URL'] . "' />
                         <h3>" . $category['Category_Name'] . "</h3>
                         <p>" . $category['Category_Description'] . "</p>
                         <button class='category-button'>Shop Now</button>
@@ -66,7 +66,10 @@ $product_array = $product_table->readAll("Product");
                         </div>
                         <span class='price product-discountPrice'>" . $product['Product_DiscountPrice'] . "</span>
                         <span class='price product-actualPrice'>" . $product['Product_ActualPrice'] . "</span>
-                        <span class='progress-bar'></div>
+                        <div class='progressbar-container'>
+                            <div class='progressbar' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='" . $product['Product_Qty'] . "'></div>
+                            <span class='qty-available'><span class='num-qty-available'>" . $product['Product_Qty'] . "</span> available in stock</span>
+                        </div>
                     </div>";
             } $product_array = NULL;
 
