@@ -4,6 +4,10 @@
 }
 .flickity-button-icon {
     fill: var(--dark-primary-color);
+    transition: fill .2s ease;
+}
+.flickity-button:hover .flickity-button-icon {
+    fill: white;
 }
 .flickity-prev-next-button.previous {
     left: -1vw;

@@ -51,21 +51,28 @@ button {
     border-radius: var(--button-border-radius);
     padding: .8em 1em;
     font: inherit;
-    position: relative;
-    /* box-shadow: var(--box-shadow); */ /* the button can't have a box-shadow because of the hover effect. the box-shadow is applied to its ::after pseudo element.*/
-    cursor: pointer;
-    transition: box-shadow .5s;
-}
-button:hover, button:focus {
-    box-shadow: inset 20em 0 0 0 var(--light-secondary-color);
-}
-button::after {
-    content: '';
-    position: absolute;
-    left: 0; top: 0;
-    height: 100%; width: 100%;
+    overflow: hidden;
     box-shadow: var(--box-shadow);
-    border-radius: inherit;
+    cursor: pointer;
+    position: relative;
+    transition: color .2s ease;
+}
+button::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--light-secondary-color);
+    position: absolute;
+    top: -100%;
+    left: 0;
+    transition: top .2s ease; 
+}
+.button-text {
+    position: relative;
+    z-index: 1;
+}
+button:hover::before, button:focus::before {
+    top: 0;
 }
 
 input {
@@ -84,6 +91,12 @@ a {
 }
 a:hover {
     text-decoration: underline;
+}
+.right {
+    float: right;
+}
+.small-text {
+    font-size: calc(var(--font-size) * .8);
 }
 
 
@@ -121,6 +134,13 @@ header {
                 padding .25s linear;
 }
 
+nav button:hover, 
+nav button:focus, 
+header button:hover,
+header button:focus {
+    color: var(--dark-primary-color);
+}
+
 nav {
     background-color: var(--lighter-primary-color);
     box-shadow: 0 -.1em 1em hsla(0, 0%, 0%, 0.116);
@@ -131,7 +151,7 @@ nav {
     align-items: center;
     padding: var(--vertical-padding) var(--horizontal-padding);
     width: 100%;
-    z-index: 5;
+    z-index: 2;
 }
 .logo {
     width: 10vw;
@@ -141,12 +161,13 @@ nav {
     max-width: 84.6px;
     max-height: 74.4px;
 }
-.searchBar {
+.search-bar {
     display: flex;
     flex: 3;
+    position: relative;
     justify-content: center;
 }
-button.allProducts {
+.button-all-products {
     border-top-right-radius: 0;
     width: 25%;
     border-bottom-right-radius: 0;
@@ -154,18 +175,18 @@ button.allProducts {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.searchBar input {
+.search-bar input {
     border-radius: 0 var(--button-border-radius) var(--button-border-radius) 0;
     width: calc(var(--horizontal-padding) + 22vw);
     border: 1px solid transparent;
     padding: 0 3em 0 1em;
 }
-.searchButton {
+.search-button {
     color: black;
-    padding: 0;
-    width: 0;
-    transform: translate(-2.5em);
-    box-shadow: initial;
+    position: absolute;
+    right: 3em; top: .3em;
+    font-size: calc(var(--font-size) * 1.4);
+    cursor: pointer;
 }
 nav > ul {
     flex: 1.5;
@@ -188,12 +209,19 @@ nav > ul li:first-child {
     flex: .7;
 }
 .cart {
+    /* overflow: auto; */
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    color: var(--dark-primary-color);
+    padding: 1em;
+    justify-content: flex-start;
     position: absolute;
     background-color: white;
     border-radius: var(--button-border-radius);
     box-shadow: var(--box-shadow);
     height: calc(var(--font-size) * 20);
-    width: calc(var(--font-size) * 14);
+    width: calc(var(--font-size) * 25);
 }
 /* triangle */
 .cart::after {
@@ -203,11 +231,57 @@ nav > ul li:first-child {
     border: .5em solid;
     border-color: transparent transparent white;
 }
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    height: 30%;
+    border: 1px solid #dddddd;
+    border-radius: var(--button-border-radius);
+    padding: .5em;
+}
+.cart-item-image {
+    width: 25%;
+    height: 100%;
+}
+.cart-item-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1em;
+}
+.cart-item-price {
+    font-weight: bold;
+}
+.cart-control-price {
+    display: flex;
+    flex-basis: 33%;
+    justify-content: flex-end;
+}
+
+.minus-button, .plus-button {
+    color: white;
+    font-weight: bold;
+    /* font-size: calc(var(--font-size) * 1.2); */
+    height: 1.5em;
+    width: 1.5em;
+    padding: 0;
+    border-radius: 0;
+}
+.minus-button:hover, .plus-button:hover {
+    color: var(--dark-primary-color);
+}
+.cart-control-price-text-box {
+    height: 1.5em;
+    width: 1.5em;
+    text-align: center;
+    border: 1px solid var(--dark-primary-color);
+}
 
 .closed {
     display: none;
 }
-.cartItems {
+.cart-items-num {
     display: inline-block;
     color: white;
     font-size: calc(var(--font-size) * .8);
@@ -265,8 +339,10 @@ nav > ul li:first-child {
     background-image: linear-gradient(45deg, var(--light-primary-color), var(--light-secondary-color));
     color: var(--dark-secondary-color);
 }
+.hero-button::before {
+    background-color: var(--dark-primary-color);
+}
 .hero-button:hover, .hero-button:focus {
-    box-shadow: inset 20em 0 0 0 var(--dark-primary-color);
     color: white;
 }
 @media (min-width: 35em) {
@@ -288,6 +364,13 @@ main {
 }
 main button {
     background-color: white;
+}
+main button::before {
+    background-color: var(--dark-primary-color);
+}
+main button:hover,
+main button:focus {
+    color: white;
 }
 section {
     margin: 2em 0;
@@ -316,7 +399,6 @@ section {
     font-weight: 550;
     margin-top: auto;
     padding: 1em;
-    z-index: 10;
 }
 .category-image {
     height: 50%;
@@ -325,17 +407,22 @@ section {
 }
 
 .product {
-    width: calc(var(--font-size) * 17);
+    display: flex;
+    flex-direction: column;
+    width: calc(var(--font-size) * 18);
     box-shadow: var(--box-shadow);
     border-radius: .5em;
     padding: 1.5em;
     margin: .5em;
-    min-height: 20em;
+    min-height: 35em;
+    max-height: 35em;
 }
 .product > * {
     margin-bottom: 1em;
 }
-
+.product-image {
+    height: 15em;
+}
 .product-category {
     text-transform: uppercase;
     color: var(--grey);
@@ -347,11 +434,11 @@ section {
 .rating-number {
     font-weight: bold;
 }
-.product-discountPrice {
+.product-discount-price {
     font-size: calc(var(--font-size) * 1.7);
     font-weight: bold;
 }
-.product-actualPrice {
+.product-actual-price {
     color: var(--grey);
     text-decoration: line-through;
     margin-left: 1em;
@@ -368,8 +455,7 @@ section {
 }
 
 .progressbar-container {
-    margin-top: 1em;
-    margin-bottom: 0;
+    margin: 1em 0;
     display: flex;
     gap: 1em;
     align-items: center;
@@ -396,4 +482,25 @@ section {
 }
 .num-qty-available {
     font-weight: bold;
+}
+.add-to-cart-button {
+    margin-top: auto;
+    align-self: flex-end;
+    width: 50%;
+    float: right;
+    font-size: calc(var(--font-size) * 0.7);
+}
+.add-to-cart-button::after {
+    box-shadow: none;
+}
+
+.disabled {
+    box-shadow: initial;
+}
+.disabled:hover, .disabled:focus {
+    cursor: initial;
+    color: inherit;
+}
+.disabled::before {
+    background: none;
 }
