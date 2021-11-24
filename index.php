@@ -1,30 +1,18 @@
 <?php
-require_once('app_config.php');
+require_once 'app_config.php';
 
-$category_table = new AppConfig;
+$category_table = new Database;
 $category_array = $category_table->readAll("Category");
-$product_table = new AppConfig;
-$product_array = $product_table->readAll("Product");
+$product_table = new Database;
+$product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Date` DESC LIMIT 5");
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="images/logo.png" />
-    <link rel="stylesheet" href="fontawesome/css/all.css" />
-    <script src="https://kit.fontawesome.com/beb10e2dc6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="flickity/flickity.min.css" media="screen" />
-    <link rel="stylesheet" href="styles/styles.css" />
-    <title>Linar Stores</title>
-</head>
-
+<?php require_once 'head.html'; ?>
 <body>
-    <?php require_once('navBar.html') ?>
+    <?php require_once 'navBar.html' ?>
     <aside>
         <div class="hero">
             <h6 class="hero-promo">25% off promotional sale</h6>
@@ -53,7 +41,7 @@ $product_array = $product_table->readAll("Product");
         <section class="product-section carousel" data-flickity='{ "cellAlign": "left", "contain": true }'>
             <?php
 
-            foreach ($product_array as $product) {
+            foreach ($product_array_recent as $product) {
                 echo "<div class='product cell-carousel' data-product-id='" . $product['Product_Id'] . "'>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 
                         src='images/" . $product['Product_Image_URL'] . "' />

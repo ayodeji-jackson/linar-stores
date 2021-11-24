@@ -8,10 +8,14 @@ const cart = $('.cart');
 const progressBarContainers = document.querySelectorAll('.progressbar-container');
 const progressBars = document.querySelectorAll('.progressbar');
 const products = document.querySelectorAll('.product');
-let itemsAlreadyInCart = localStorage.getItem('cart');
-itemsAlreadyInCart = itemsAlreadyInCart ? itemsAlreadyInCart.split(',') : [];
+let itemsAlreadyInCart = JSON.parse(localStorage.getItem('cart')) || [];
+
 for (let i = 0; i < itemsAlreadyInCart.length; i++) {
-    DOMCreateCartElement(i);
+    DOMCreateCartElement(itemsAlreadyInCart[i]);
+}
+
+function replaceSubstrAt(string, index, replacement) {
+    return string.slice(0, index) + replacement + string.slice(index);
 }
 
 sessionStorage.getItem("notification-hidden") ? notificationBar.classList.add('notification-hidden') : console.log();
@@ -49,31 +53,42 @@ for (let i = 0; i < progressBars.length; i++) {
 }
 
 for (let product of products) {
-    if (localStorage.getItem('cart') && localStorage.getItem('cart').includes(product.getAttribute('data-product-id'))) {
+    if (Boolean(localStorage.getItem('cart')) && JSON.parse(localStorage.getItem('cart')).some((obj) => { 
+        return obj.productId == product.getAttribute('data-product-id');
+    })) {
         product.lastElementChild.textContent = "Added to cart";
         product.lastElementChild.classList.add('disabled');
     }
 }
 
+
 function addToCart(addToCartButton) {
     if (!addToCartButton.classList.contains('disabled')) {
         addToCartButton.textContent = "Added to cart";
         addToCartButton.classList.add('disabled');
-        let addedProduct = addToCartButton.parentElement.getAttribute('data-product-id');
-        localStorage.getItem('cart') ?
-            localStorage.setItem('cart', `${localStorage.getItem('cart')},${addedProduct}`) :
-            localStorage.setItem('cart', addedProduct);
+        let product = 
+        { 'productId' : addToCartButton.parentElement.getAttribute('data-product-id'),
+            'productName' : addToCartButton.parentElement.querySelector('.product-name').textContent,
+            'productImgSrc' : addToCartButton.parentElement.querySelector('.product-image').getAttribute('src'),
+            'productPrice' : addToCartButton.parentElement.querySelector('.product-discount-price').textContent,
+            'productQty' : 1 
+        }
+        let currentItemsInCart = localStorage.getItem('cart') ? localStorage.getItem('cart') : '[]';
+        JSON.parse(currentItemsInCart).length ?
+            localStorage.setItem('cart', replaceSubstrAt(currentItemsInCart, currentItemsInCart.length - 1, ', ' + JSON.stringify(product))) :
+            localStorage.setItem('cart', JSON.stringify([product]));
 
-        itemsAlreadyInCart = localStorage.getItem('cart').split(',');
-        DOMCreateCartElement(itemsAlreadyInCart.length - 1);
+        DOMCreateCartElement(product);
     }
 }
 
 function removeFromCart(DOMCartItem) {
     let productId = DOMCartItem.getAttribute('data-product-id'),
-        addToCartButton = $(`.product[data-product-id='${productId}']`).querySelector('.add-to-cart-button');
-    localStorage.cart = localStorage.cart.split(',').filter((a) => { return a != productId; }).join(',');
+        addToCartButton = $(`.product[data-product-id='${productId}']`).querySelector('.add-to-cart-button'),
+        currentItemsInCart = JSON.parse(localStorage.getItem('cart'));
+    localStorage.setItem('cart', JSON.stringify(currentItemsInCart.filter((obj) => { return obj.productId != productId; })));
     DOMCartItem.remove();
+
     addToCartButton.classList.remove('disabled');
     addToCartButton.textContent = null;
     addToCartButton.appendChild(document.createElement('span')).setAttribute('class', 'button-text');
@@ -81,44 +96,37 @@ function removeFromCart(DOMCartItem) {
     addToCartButton.querySelector('.button-text').appendChild(document.createElement('i')).setAttribute('class', 'fa fa-shopping-cart');
 }
 
-function DOMCreateCartElement(pos) {
+function DOMCreateCartElement(productObject) {
     cart.appendChild(document.createElement('div')).setAttribute('class', 'cart-item');
-    for (let product of products) {
-        if (product.getAttribute('data-product-id') == itemsAlreadyInCart[pos]) {
-            cart.children[pos].setAttribute('data-product-id', product.getAttribute('data-product-id'));
-            cart.children[pos].setAttribute('data-product-imgsrc', product.querySelector('.product-image').getAttribute('src'));
-            cart.children[pos].setAttribute('data-product-name', product.querySelector('.product-name').textContent);
-            cart.children[pos].setAttribute('data-product-price', product.querySelector('.product-discount-price').textContent);
-        }
-    }
-    cart.children[pos].appendChild(document.createElement('img')).setAttribute('class', 'cart-item-image');
-    cart.children[pos].querySelector('.cart-item-image').setAttribute('src', cart.children[pos].getAttribute('data-product-imgsrc'));
-    cart.children[pos].appendChild(document.createElement('div')).setAttribute('class', 'cart-item-text');
-    cart.children[pos].querySelector('.cart-item-text').appendChild(document.createElement('p')).setAttribute('class', 'cart-item-name');
-    cart.children[pos].querySelector('.cart-item-text').appendChild(document.createElement('p')).setAttribute('class', 'cart-item-price');
-    cart.children[pos].querySelector('.cart-item-name').textContent = cart.children[pos].getAttribute('data-product-name');
-    cart.children[pos].querySelector('.cart-item-price').textContent = cart.children[pos].getAttribute('data-product-price');
-    cart.children[pos].appendChild(document.createElement('div')).setAttribute('class', 'cart-control-qty');
-    cart.children[pos].querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'minus-button');
-    cart.children[pos].querySelector('.minus-button').appendChild(document.createElement('span')).setAttribute('class', 'button-text');
-    cart.children[pos].querySelector('.minus-button').querySelector('.button-text').textContent = '-';
-    cart.children[pos].querySelector('.cart-control-qty').appendChild(document.createElement('input')).setAttribute('class', 'cart-control-qty-text-box');
-    cart.children[pos].querySelector('.cart-control-qty-text-box').setAttribute('type', 'number');
-    cart.children[pos].querySelector('.cart-control-qty-text-box').setAttribute('value', 1);
-    cart.children[pos].querySelector('.cart-control-qty-text-box').setAttribute('max', 99);
-    cart.children[pos].querySelector('.cart-control-qty-text-box').setAttribute('min', 0);
-    cart.children[pos].querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'plus-button');
-    cart.children[pos].querySelector('.plus-button').appendChild(document.createElement('span')).setAttribute('class', 'button-text');
-    cart.children[pos].querySelector('.plus-button').querySelector('.button-text').textContent = '+';
+    cart.lastChild.setAttribute('data-product-id', productObject['productId']);
+    cart.lastChild.appendChild(document.createElement('img')).setAttribute('class', 'cart-item-image');
+    cart.lastChild.querySelector('.cart-item-image').setAttribute('src', productObject['productImgSrc']);
+    cart.lastChild.appendChild(document.createElement('div')).setAttribute('class', 'cart-item-text');
+    cart.lastChild.querySelector('.cart-item-text').appendChild(document.createElement('p')).setAttribute('class', 'cart-item-name');
+    cart.lastChild.querySelector('.cart-item-text').appendChild(document.createElement('p')).setAttribute('class', 'cart-item-price');
+    cart.lastChild.querySelector('.cart-item-name').textContent = productObject['productName'];
+    cart.lastChild.querySelector('.cart-item-price').textContent = productObject['productPrice'];
+    cart.lastChild.appendChild(document.createElement('div')).setAttribute('class', 'cart-control-qty');
+    cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'minus-button');
+    cart.lastChild.querySelector('.minus-button').appendChild(document.createElement('span')).setAttribute('class', 'button-text');
+    cart.lastChild.querySelector('.minus-button').querySelector('.button-text').textContent = '-';
+    cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('input')).setAttribute('class', 'cart-control-qty-text-box');
+    cart.lastChild.querySelector('.cart-control-qty-text-box').setAttribute('type', 'number');
+    cart.lastChild.querySelector('.cart-control-qty-text-box').setAttribute('value', 1);
+    cart.lastChild.querySelector('.cart-control-qty-text-box').setAttribute('max', 99);
+    cart.lastChild.querySelector('.cart-control-qty-text-box').setAttribute('min', 0);
+    cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'plus-button');
+    cart.lastChild.querySelector('.plus-button').appendChild(document.createElement('span')).setAttribute('class', 'button-text');
+    cart.lastChild.querySelector('.plus-button').querySelector('.button-text').textContent = '+';
 
-    cart.children[pos].querySelector('.plus-button').onclick = (event) => {
+    cart.lastChild.querySelector('.plus-button').onclick = (event) => {
         event.currentTarget.previousSibling.setAttribute('value', Number(event.currentTarget.previousSibling.value) + 1);
     };
-    cart.children[pos].querySelector('.minus-button').onclick = (event) => {
+    cart.lastChild.querySelector('.minus-button').onclick = (event) => {
         event.currentTarget.nextSibling.setAttribute('value', Number(event.currentTarget.nextSibling.value) - 1);
     };
 
-    cart.children[pos].querySelector('.cart-control-qty-text-box').addEventListener('change', (event) => {
+    cart.lastChild.querySelector('.cart-control-qty-text-box').addEventListener('change', (event) => {
         let cartItem = event.target.parentElement.parentElement;
         if (event.target.value == '0') removeFromCart(cartItem);
 

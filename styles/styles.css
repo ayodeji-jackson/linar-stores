@@ -127,6 +127,12 @@ header {
     font-size: calc(var(--font-size) + 1vw);
     right: calc(var(--horizontal-padding) / 4);
 }
+.close:hover {
+    color: #dddddd;
+}
+.close:active {
+    color: #cccccc;
+}
 .notification-hidden {
     --vertical-padding: 0;
     max-height: 0;
@@ -154,7 +160,6 @@ nav {
     z-index: 2;
 }
 .logo {
-    width: 100%;
     height: 10vw;
     min-width: 42.3px;
     min-height: 37.2px;
@@ -163,20 +168,31 @@ nav {
 }
 .search-bar {
     max-width: fit-content;
-    margin-left: 7em;
     flex: 3;
     display: flex;
     justify-content: center;
 }
+.search-bar.alone {
+    margin-left: auto;
+}
+.search-bar.alone > input{
+    height: 3em;
+    border-radius: var(--border-radius);
+}
+@media (min-width: 51.25em) {
+    .search-bar {
+        margin-left: auto;
+    }
+}
 .button-all-products {
     border-top-right-radius: 0;
-    width: 25%;
+    /* width: 25%; */
     border-bottom-right-radius: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.search-bar input {
+.search-bar > input {
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     width: calc(var(--horizontal-padding) + 22vw);
     border: 1px solid transparent;
@@ -319,11 +335,17 @@ nav > ul li:first-child {
     .close {
         font-size: 1rem;
     }
-    .searchBar button.allProducts {
-        width: 37%;
+    .button-all-products {
+        width: 20vw;
     }
-    .searchBar input {
-        width: 50%;
+    .search-bar > input {
+        width: 40vw;
+    }
+    .search-bar.alone {
+        margin-left: initial;
+    }
+    .search-bar.alone > input {
+        width: 50vw;
     }
 }
 

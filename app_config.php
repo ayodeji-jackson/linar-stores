@@ -1,6 +1,6 @@
 <?php
 
-class AppConfig {
+class Database {
     private $mysqli;
 
     function __construct() {
@@ -10,11 +10,11 @@ class AppConfig {
             return $e->getMessage();
         }
     }
-    function read($tableName, $id) {
-        return $this->mysqli->query("SELECT * FROM $tableName WHERE $tableName" . "_Id = $id")->fetch_assoc();
+    function read($tableName, $id, $extra_param = "") {
+        return $this->mysqli->query("SELECT * FROM $tableName WHERE $tableName" . "_Id = $id $extra_param")->fetch_assoc();
     }
-    function readAll($tableName) {
-        return $this->mysqli->query("SELECT * FROM $tableName")->fetch_all(MYSQLI_ASSOC);
+    function readAll($tableName, $extra_param = "") {
+        return $this->mysqli->query("SELECT * FROM $tableName $extra_param")->fetch_all(MYSQLI_ASSOC);
     } 
     function insert($sql) {
 
