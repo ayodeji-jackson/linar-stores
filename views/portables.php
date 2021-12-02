@@ -1,23 +1,23 @@
 <?php
-require_once __DIR__ . '/../controllers/app_config.php';
+require_once __DIR__ . "/../controllers/app_config.php";
 
 $product_table = new Database;
-$product_array_recent = $product_table->readAll("Product");
-$current_page = "All Products";
+$portables = $product_table->readAll("Product", "WHERE `Product_Category` = 'Portables'");
+$current_page = "Portables";
 
 ?>
 
 <!DOCTYPE html>
-<html>
-<?php require_once __DIR__ . '/../static/head.html'; ?>
+<html lang="en">
+<?php require_once __DIR__ . "/../static/head.html"; ?>
 
 <body>
-    <?php require_once __DIR__ . '/../static/header.html'; ?>
+    <?php require_once __DIR__ . "/../static/header.html"; ?>
     <main>
-        <h1 class="section-heading">All Products</h1>
+        <h1 class="section-heading">Portables</h1>
         <section class="product-section no-carousel">
             <?php
-            foreach ($product_array_recent as $product) {
+            foreach ($portables as $product) {
                 echo "<div class='product' data-product-id='" . $product['Product_Id'] . "'>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 
                         src='/images/" . $product['Product_Image_URL'] . "' />
@@ -58,6 +58,6 @@ $current_page = "All Products";
         document.querySelector('.button-all-products').remove();
         document.querySelector('.search-bar').classList.add('alone');
     </script>
+    
 </body>
-
 </html>

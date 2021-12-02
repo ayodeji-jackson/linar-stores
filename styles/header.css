@@ -24,6 +24,7 @@ header {
     cursor: pointer;
     font-size: calc(var(--font-size) + 1vw);
     right: calc(var(--horizontal-padding) / 4);
+    transition: color .1s ease;
 }
 .close:hover {
     color: #dddddd;
@@ -74,7 +75,7 @@ nav {
     justify-content: center;
 }
 
-.search-bar.alone > input{
+.search-bar.alone input{
     height: 3em;
     width: 30vw;
     border-radius: var(--border-radius);
@@ -88,7 +89,7 @@ nav .button-all-products {
     width: 25%;
     max-width: fit-content;
 }
-.search-bar > input {
+.search-bar input {
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     width: calc(var(--horizontal-padding) + 22vw);
     border: 1px solid transparent;
@@ -98,7 +99,8 @@ nav .button-all-products {
     color: black;
     width: 0;
     transform: translate3d(-2em, .3em, 0);
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     font-size: calc(var(--font-size) * 1.4);
     cursor: pointer;
 }
@@ -119,7 +121,7 @@ nav > ul li {
     transition: color .2s linear;
 }
 nav > ul li:hover {
-    color: var(--dark-secondary-color);
+    color: var(--dark-primary-color);
 }
 nav > ul li:first-child {
     flex: .7;
@@ -256,7 +258,7 @@ nav > ul li:first-child {
     .button-all-products {
         width: 20vw;
     }
-    .search-bar > input {
+    .search-bar input {
         width: 40vw;
     }
     .button-all-products {

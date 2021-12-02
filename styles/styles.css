@@ -70,7 +70,7 @@ button::before, .btn::before {
     position: absolute;
     top: -100%;
     left: 0;
-    transition: top .2s ease; 
+    transition: top .1s ease; 
 }
 .button-text {
     position: relative;

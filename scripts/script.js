@@ -33,7 +33,7 @@ function readablePrice(price) {
     return '₦' + Number(price).toLocaleString();
 }
 function backToInt(price) {
-    return Number(price.slice(1).split(',').join(''));
+    return typeof price == 'string' ? Number(price.slice(1).split(',').join('')) : price;
 }
 
 for (let price of document.querySelectorAll('main .price')) {
@@ -86,14 +86,12 @@ function addToCart(addToCartButton) {
             'productName': addToCartButton.parentElement.querySelector('.product-name').textContent,
             'productImgSrc': addToCartButton.parentElement.querySelector('.product-image').getAttribute('src'),
             'productPrice': addToCartButton.parentElement.querySelector('.product-discount-price').textContent,
+            'productQtyAvailable': addToCartButton.parentElement.querySelector('.num-qty-available').textContent,
             'productQty': 1
         }
         addObjectToLocalStorage('cart', product);
-
-        cartTotalPrice.textContent = readablePrice(backToInt(cartTotalPrice.textContent) + backToInt(product['productPrice']));
-
-
         DOMCreateCartElement(product);
+        cartTotalPrice.textContent = readablePrice(backToInt(cartTotalPrice.textContent) + backToInt(product['productPrice']));
     }
 }
 
@@ -107,6 +105,7 @@ function removeFromCart(DOMCartItem) {
         if (document.querySelector(`.product[data-product-id='${productId}']`)) {
             let addToCartButton = document.querySelector(`.product[data-product-id='${productId}']`).querySelector('.add-to-cart-button');
             addToCartButton.classList.remove('disabled');
+            addToCartButton.disabled = false;
             addToCartButton.textContent = null;
             addToCartButton.appendChild(document.createElement('span')).setAttribute('class', 'button-text');
             addToCartButton.querySelector('.button-text').textContent = "Add to cart ";
@@ -115,7 +114,6 @@ function removeFromCart(DOMCartItem) {
         
 
         if (currentItemsInCart.length <= 1) cart.querySelector('.cart-message').classList.remove('closed');
-        cartTotalPrice.textContent = readablePrice(backToInt(cartTotalPrice.textContent) - backToInt(DOMCartItem.querySelector('.cart-item-price').textContent));
         document.querySelector('.cart-items-num').textContent = cart.querySelectorAll('.cart-item').length;
     }, 1);
 }
@@ -124,6 +122,8 @@ function DOMCreateCartElement(productObject) {
     cart.querySelector('.cart-message').classList.add('closed');
     cart.appendChild(document.createElement('div')).setAttribute('class', 'cart-item');
     cart.lastChild.setAttribute('data-product-id', productObject['productId']);
+    cart.lastChild.setAttribute('data-product-price', productObject['productPrice']);
+    cart.lastChild.setAttribute('data-product-qty-available', productObject['productQtyAvailable']);
     cart.lastChild.appendChild(document.createElement('img')).setAttribute('class', 'cart-item-image');
     cart.lastChild.querySelector('.cart-item-image').setAttribute('src', productObject['productImgSrc']);
     cart.lastChild.appendChild(document.createElement('div')).setAttribute('class', 'cart-item-text');
@@ -145,7 +145,7 @@ function DOMCreateCartElement(productObject) {
 
     cart.lastChild.querySelector('.plus-button').onclick = (event) => {
         let textBox = event.currentTarget.previousSibling;
-        if (Number(textBox.value) < 99) {
+        if (Number(textBox.value) < Number(textBox.parentElement.parentElement.getAttribute('data-product-qty-available'))) {
             textBox.setAttribute('value', Number(textBox.value) + 1);
             textBox.dispatchEvent(new Event('change'));
         }
@@ -160,7 +160,8 @@ function DOMCreateCartElement(productObject) {
 
     cart.lastChild.querySelector('.cart-control-qty-text-box').onchange = (event) => {
         let cartItem = event.target.parentElement.parentElement;
-        cartItem.querySelector('.cart-item-price').textContent = readablePrice(backToInt(cartItem.querySelector('.cart-item-price').textContent) * Number(event.target.value));
+        cartItem.querySelector('.cart-item-price').textContent = readablePrice(backToInt(cartItem.getAttribute('data-product-price')) * Number(event.target.value));
+        cartTotalPrice.textContent = readablePrice(Array.from(document.querySelectorAll('.cart-item-price')).map((a) => { return a.textContent; }).reduce((a, b) => { return backToInt(a) + backToInt(b); }, '₦0'));
         if (event.target.value == '0') removeFromCart(cartItem);
     };
 

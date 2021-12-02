@@ -18,7 +18,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
             <h6 class="hero-promo">25% off promotional sale</h6>
             <h1 class="hero-main-text">The tech store just for you.</h1>
             <h5 class="hero-side-text">What do you want?</h5>
-            <button class="hero-button"><span class='button-text'>Browse Products</span></button>
+            <a href='all-products'><button class="hero-button"><span class='button-text'>Browse Products</span></button></a>
         </div>
     </aside>
     <main>
