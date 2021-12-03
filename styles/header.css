@@ -75,11 +75,6 @@ nav {
     justify-content: center;
 }
 
-.search-bar.alone input{
-    height: 3em;
-    width: 30vw;
-    border-radius: var(--border-radius);
-}
 nav .button-all-products {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -96,14 +91,20 @@ nav .button-all-products {
     padding: 0 3em 0 1em;
 }
 .search-button {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: initial;
     color: black;
-    width: 0;
-    transform: translate3d(-2em, .3em, 0);
+    transform: translate3d(-2em, 0, 0);
     top: 0;
     left: 0;
     font-size: calc(var(--font-size) * 1.4);
     cursor: pointer;
 }
+.search-button::before {
+    position: initial;
+}
+
 nav > ul {
     max-width: fit-content;
     margin-left: auto;
@@ -140,6 +141,8 @@ nav > ul li:first-child {
     box-shadow: var(--box-shadow);
     height: calc(var(--font-size) * 20);
     width: calc(var(--font-size) * 25);
+    transition: opacity .5s ease, 
+                visibility 0s ease;
 }
 /* triangle */
 .cart::after {
@@ -225,7 +228,10 @@ nav > ul li:first-child {
 }
 
 .closed {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s ease .5s,
+                opacity .5s ease;
 }
 .cart-items-num {
     display: inline-block;
@@ -264,7 +270,7 @@ nav > ul li:first-child {
     .button-all-products {
         width: 25vw;
     }
-    .search-bar, .search-bar.alone {
+    .search-bar {
         margin-left: initial;
     }
 }

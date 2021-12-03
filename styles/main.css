@@ -49,14 +49,18 @@ main {
     color: var(--dark-primary-color);
     padding: var(--vertical-padding) var(--horizontal-padding)
 }
-main button {
+main button, 
+main .btn {
     background-color: white;
 }
-main button::before {
+main button::before, 
+main .btn::before {
     background-color: var(--dark-primary-color);
 }
 main button:hover,
-main button:focus {
+main button:focus, 
+main .btn:hover, 
+main .btn:focus {
     color: white;
 }
 section {
@@ -80,12 +84,14 @@ section {
     margin: .5em 0 2em;
     color: grey;
 }
-.category-button {
+a.category-button {
     width: max(55px, 12vw);
     font-size: calc(var(--font-size) / 1.2);
     font-weight: 550;
+    text-decoration: none;
     margin-top: auto;
     padding: 1em;
+    text-align: center;
 }
 .category-image {
     height: 50%;

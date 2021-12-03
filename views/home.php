@@ -30,7 +30,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
                         <img class='category-image' alt='" . $category['Category_Name'] . "' src='/images/" . $category['Category_Image_URL'] . "' />
                         <h3>" . $category['Category_Name'] . "</h3>
                         <p>" . $category['Category_Description'] . "</p>
-                        <button class='category-button'><span class='button-text'>Shop Now</span></button>
+                        <a href='" . strtolower($category['Category_Name']) . "' class='btn category-button'><span class='button-text'>Shop Now</span></a>
                     </div>";
             }
             $category_array = NULL;
@@ -74,6 +74,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
             ?>
         </section>
     </main>
+    <?php require_once __DIR__ . "/../static/footer.html"; ?>
     <script src="/scripts/script.js"></script>
     <script src="/flickity/flickity.pkgd.min.js"></script>
 </body>

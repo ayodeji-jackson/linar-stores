@@ -50,14 +50,9 @@ $current_page = "All Products";
             ?>
         </section>
     </main>
-
-
+    <?php require_once __DIR__ . "/../static/footer.html"; ?>
 
     <script src="/scripts/script.js"></script>
-    <script>
-        document.querySelector('.button-all-products').remove();
-        document.querySelector('.search-bar').classList.add('alone');
-    </script>
 </body>
 
 </html>

@@ -5,13 +5,13 @@
 </header>
 <nav>
     <a href="/"><img src="/images/logo.png" alt="Linar Stores" class="logo" /></a>
-    <form class="search-bar">
-        <a href="all-products" class="btn button-all-products" role="button"><span class='button-text'>All Products<i class="fa fa-angle-down"></i></span></a>
-        <input type="search" placeholder="Enter keywords" />
-        <span class="search-button" role="button" type="submit"><i class="fa fa-search"></i></span>
+    <form class="search-bar" action="all-products">
+        <button class="btn button-all-products" type="button"><span class='button-text'>All Products<i class="fa fa-angle-down"></i></span></button>
+        <input type="search" placeholder="Enter keywords" required />
+        <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
     </form>
     <ul>
-        <li><i class="fa fa-user"></i>Guest</li>
+        <li title="Coming soon"><i class="fa fa-user"></i>Guest</li>
         <li class="cart-button"><i class="fa fa-shopping-cart"></i>Cart<span class="cart-items-num">0</span></li>
     </ul>
     <div class="cart closed">

@@ -90,6 +90,16 @@ input {
     font: inherit;
     box-shadow: var(--box-shadow);
 }
+/* remove spinners */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: none;
+}
+
 i {
     margin: 0 .4em;
 }
@@ -103,9 +113,17 @@ a {
 a:hover {
     text-decoration: underline;
 }
+a.btn:hover {
+    text-decoration: none;
+}
 .right {
     float: right;
 }
 .small-text {
     font-size: calc(var(--font-size) * .8);
+}
+footer {
+    color: black;
+    padding: var(--vertical-padding) var(--horizontal-padding);
+    background-color: var(--lighter-primary-color);
 }
