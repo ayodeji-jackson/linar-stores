@@ -15,9 +15,9 @@ switch($request) {
     case '/portables/':
         require_once __DIR__ . '/views/portables.php';
         break;
-    case '/desktops':
-    case '/desktops/':
-        require_once __DIR__ . '/views/desktops.php';
+    case '/computers':
+    case '/computers/':
+        require_once __DIR__ . '/views/computers.php';
         break;
     case '/networking':
     case '/networking/':

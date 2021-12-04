@@ -2,8 +2,8 @@
 require_once __DIR__ . "/../controllers/app_config.php";
 
 $product_table = new Database;
-$desktops = $product_table->readAll("Product", "WHERE `Product_Category` = 'Desktops'");
-$current_page = "Desktops";
+$computers = $product_table->readAll("Product", "WHERE `Product_Category` = 'Computers'");
+$current_page = "Computers";
 
 ?>
 
@@ -14,10 +14,10 @@ $current_page = "Desktops";
 <body>
     <?php require_once __DIR__ . "/../static/header.html"; ?>
     <main>
-        <h1 class="section-heading">Desktops</h1>
+        <h1 class="section-heading">Computers</h1>
         <section class="product-section no-carousel">
             <?php
-            foreach ($desktops as $product) {
+            foreach ($computers as $product) {
                 echo "<div class='product' data-product-id='" . $product['Product_Id'] . "'>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 
                         src='/images/" . $product['Product_Image_URL'] . "' />

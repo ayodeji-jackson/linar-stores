@@ -104,6 +104,27 @@ nav .button-all-products {
 .search-button::before {
     position: initial;
 }
+.nav-category-menu {
+    overflow: hidden;
+    list-style-type: none;
+    background-color: var(--dark-primary-color);
+    position: absolute;
+    left: 0;
+    height: auto;
+    box-shadow: var(--box-shadow);
+    transition: height .3s ease;
+}
+.nav-category-menu > li {
+    display: block;
+    padding: 1em 2em;
+    cursor: pointer;
+}
+.nav-category-menu > li + li {
+    border-top: 1px solid #cccccc;
+}
+.shut {
+    height: 0;
+}
 
 nav > ul {
     max-width: fit-content;
@@ -117,14 +138,14 @@ nav > ul {
     align-items: center;
     list-style-type: none;
 }
-nav > ul li {
+nav > ul.nav-list li {
     cursor: pointer;
     transition: color .2s linear;
 }
-nav > ul li:hover {
+nav > ul.nav-list li:hover {
     color: var(--dark-primary-color);
 }
-nav > ul li:first-child {
+nav > ul.nav-list li:first-child {
     flex: .7;
 }
 .cart {
@@ -153,7 +174,7 @@ nav > ul li:first-child {
     border-color: transparent transparent white;
 }
 .cart-item {
-    transform: translate3d(0, -5em, 0);
+    transform: translate3d(0, -7em, 0);
     display: flex;
     align-items: center;
     gap: 1em;
@@ -211,7 +232,7 @@ nav > ul li:first-child {
 }
 .cart-footer {
     display: flex;
-    padding: .5em;
+    min-height: 4em;
     align-items: center;
     background-color: white;
     position: sticky;
@@ -221,7 +242,7 @@ nav > ul li:first-child {
 .cart-footer button {
     color: white;
     margin-left: auto;
-    padding: .7em .5em;
+    padding: .5em;
 }
 .cart-footer .price {
     font-weight: bold;
@@ -252,7 +273,7 @@ nav > ul li:first-child {
     .notification, nav {
         flex-direction: column;
     }
-    nav > ul {
+    nav > ul.nav-list {
         margin: initial;
     }
     .notification-button {

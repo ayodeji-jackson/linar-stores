@@ -70,7 +70,7 @@ button::before, .btn::before {
     position: absolute;
     top: -100%;
     left: 0;
-    transition: top .1s ease; 
+    transition: top .1s ease;
 }
 .button-text {
     position: relative;
@@ -123,7 +123,17 @@ a.btn:hover {
     font-size: calc(var(--font-size) * .8);
 }
 footer {
+    text-align: center;
     color: black;
     padding: var(--vertical-padding) var(--horizontal-padding);
     background-color: var(--lighter-primary-color);
+}
+footer > * + * {
+    margin-top: 1em;
+}
+footer a {
+    font-size: 2em; 
+}
+footer a + a {
+    margin-left: .5em;
 }

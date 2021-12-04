@@ -5,7 +5,31 @@ const cartTotalPrice = document.querySelector('.cart-footer .price');
 const progressBarContainers = document.querySelectorAll('.progressbar-container');
 const progressBars = document.querySelectorAll('.progressbar');
 const products = document.querySelectorAll('.product');
+const navCategoryMenu = document.querySelector('.nav-category-menu');
+const allProductsButton = document.querySelector('.button-all-products');
 let itemsAlreadyInCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+let toggle = document.querySelector('.toggle');
+let height = navCategoryMenu.scrollHeight;
+
+toggle.onclick = slideDown;
+function slideDown(event) {
+    event.preventDefault();
+    navCategoryMenu.classList.toggle('shut');
+    if (navCategoryMenu.classList.contains('shut')) navCategoryMenu.style.setProperty('height', '0');
+    else navCategoryMenu.style.setProperty('height', height + 'px');
+}
+
+for (let item of navCategoryMenu.children) {
+    item.onclick = (event) => {
+        let arrow = "<i class='fa fa-angle-down'></i>"
+        let temp = allProductsButton.children[0].textContent;
+        allProductsButton.children[0].innerHTML = item.textContent + arrow;
+        allProductsButton.parentElement.setAttribute('action', item.textContent.toLowerCase());
+        item.textContent = temp;
+        slideDown(event);
+    }
+}
 
 let tempPrice = 0;
 for (let i = 0; i < itemsAlreadyInCart.length; i++) {
@@ -42,13 +66,16 @@ for (let price of document.querySelectorAll('main .price')) {
 
 cart.style.setProperty('top', `${(cartButton.getBoundingClientRect().bottom + 10) - notificationBar.offsetHeight}px`);
 cart.style.setProperty('right', `${window.innerWidth - cartButton.getBoundingClientRect().right - 5}px`);
+navCategoryMenu.style.setProperty('left', `${allProductsButton.getBoundingClientRect().left}px`);
+navCategoryMenu.style.setProperty('top', `${allProductsButton.getBoundingClientRect().bottom - notificationBar.offsetHeight}px`);
 
 cartButton.onclick = (event) => {
     cart.classList.toggle('closed');
     event.stopPropagation();
 };
+
 document.querySelector('body').onclick = (event) => {
-    if (!(event.target == cart || Array.from(cart.querySelectorAll('*')).includes(event.target))) cart.classList.add('closed');
+    if (!(cart.classList.contains('closed') || event.target == cart || Array.from(cart.querySelectorAll('*')).includes(event.target))) cart.classList.add('closed');
 };
 
 for (let i = 0; i < progressBars.length; i++) {
@@ -160,13 +187,12 @@ function DOMCreateCartElement(productObject) {
 
     cart.lastChild.querySelector('.cart-control-qty-text-box').onchange = (event) => {
         let cartItem = event.target.parentElement.parentElement;
-        cartItem.querySelector('.cart-item-price').textContent = readablePrice(backToInt(cartItem.getAttribute('data-product-price')) * Number(event.target.value));
         cartTotalPrice.textContent = readablePrice(Array.from(document.querySelectorAll('.cart-item-price')).map((a) => { return a.textContent; }).reduce((a, b) => { return backToInt(a) + backToInt(b); }, '₦0'));
         if (Number(event.target.value) == 0 || event.target.value == '') removeFromCart(cartItem);
         else if (Number(event.target.value) > Number(cartItem.getAttribute('data-product-qty-available'))) event.target.value = cartItem.getAttribute('data-product-qty-available');
+        cartItem.querySelector('.cart-item-price').textContent = readablePrice(backToInt(cartItem.getAttribute('data-product-price')) * Number(event.target.value));
     };
 
     document.querySelector('.cart-items-num').textContent = cart.querySelectorAll('.cart-item').length;
 
 }
-
