@@ -45,7 +45,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
                 echo "<div class='product cell-carousel' data-product-id='" . $product['Product_Id'] . "'>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 
                         src='/images/" . $product['Product_Image_URL'] . "' />
-                        <h3 class='product-category'>" . $product['Product_Category'] . "</h3>
+                        <h3 class='product-category'><a href='" . strtolower($product['Product_Category']) . "'>" . $product['Product_Category'] . "</a></h3>
                         <p class='product-name'>" . $product['Product_Name'] . "</p>
                         <div class='rating' data-rating='" . $product['Product_Rating'] . "'>
                             <i class='fa fa-star grey-star'></i>

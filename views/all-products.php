@@ -2,26 +2,45 @@
 require_once __DIR__ . '/../controllers/app_config.php';
 
 $product_table = new Database;
-$product_array_recent = $product_table->readAll("Product");
-$current_page = "All Products";
+$page = "All Products";
+
+if (isset($_GET['q'])) {
+    $search_query = htmlentities(strip_tags(stripslashes($_GET['q'])));
+    $product_array = $product_table->search("Product", "Name", $search_query);
+    $current_page = "Search Results for '$search_query' in $page";
+} else {
+    $product_array = $product_table->readAll("Product");
+    $current_page = $page;
+}
 
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <?php require_once __DIR__ . '/../static/head.html'; ?>
 
 <body>
     <?php require_once __DIR__ . '/../static/header.html'; ?>
     <main>
-        <h1 class="section-heading">All Products</h1>
+        <?php
+        if (!empty($product_array)) {
+            echo <<<_END
+                <h1 class="section-heading">$current_page</h1>
+            _END;
+        } else {
+            echo <<<_END
+                <h1 class="section-heading center grey">No search results for '$search_query' in $page 🙁</h1>
+            _END;
+        }
+
+        ?>
         <section class="product-section no-carousel">
             <?php
-            foreach ($product_array_recent as $product) {
+            foreach ($product_array as $product) {
                 echo "<div class='product' data-product-id='" . $product['Product_Id'] . "'>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 
                         src='/images/" . $product['Product_Image_URL'] . "' />
-                        <h3 class='product-category'>" . $product['Product_Category'] . "</h3>
+                        <h3 class='product-category'><a href='" . strtolower($product['Product_Category']) . "'>" . $product['Product_Category'] . "</a></h3>
                         <p class='product-name'>" . $product['Product_Name'] . "</p>
                         <div class='rating' data-rating='" . $product['Product_Rating'] . "'>
                             <i class='fa fa-star grey-star'></i>

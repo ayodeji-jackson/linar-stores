@@ -25,6 +25,9 @@ class Database {
     function delete($sql) {
 
     }
+    function search($tableName, $column, $value, $extra_param = "") {
+        return $this->mysqli->query("SELECT * FROM $tableName WHERE MATCH($tableName" . "_$column) AGAINST('$value' IN BOOLEAN MODE) $extra_param")->fetch_all(MYSQLI_ASSOC);
+    }
     function __destruct() {
         $this->mysqli->close();
     }

@@ -5,19 +5,20 @@
 </header>
 <nav>
     <a href="/"><img src="/images/logo.png" alt="Linar Stores" class="logo" /></a>
-    <form class="search-bar">
+    <form class="search-bar" method="GET">
         <button class="btn button-all-products toggle" type="button"><span class='button-text'>All Products<i class="fa fa-angle-down"></i></span></button>
         <ul class="nav-category-menu shut">
             <li class="nav-category-menu-item">Portables</li>
-            <li class="nav-category-menu-item">Desktops</li>
+            <li class="nav-category-menu-item">Computers</li>
             <li class="nav-category-menu-item">Networking</li>
         </ul>
-        <input type="search" placeholder="Enter keywords" required />
+        <input type="search" name="q" placeholder="Enter keywords" required />
         <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
     </form>
     <ul class="nav-list">
         <li title="Coming soon"><i class="fa fa-user"></i>Guest</li>
         <li class="cart-button"><i class="fa fa-shopping-cart"></i>Cart<span class="cart-items-num">0</span></li>
+        <li></li>
     </ul>
     <div class="cart closed">
         <p class="cart-message">Your cart is empty</p>

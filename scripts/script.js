@@ -24,15 +24,17 @@ for (let item of navCategoryMenu.children) {
     item.onclick = (event) => {
         let arrow = "<i class='fa fa-angle-down'></i>"
         let temp = allProductsButton.children[0].textContent;
+        allProductsButton.parentElement.setAttribute('action', item.textContent.toLowerCase().replace(/\s+/g, "-")); //set form action
         allProductsButton.children[0].innerHTML = item.textContent + arrow;
-        allProductsButton.parentElement.setAttribute('action', item.textContent.toLowerCase());
         item.textContent = temp;
         slideDown(event);
     }
 }
 
+allProductsButton.parentElement.setAttribute('action', allProductsButton.textContent.toLowerCase().replace(/\s+/g, "-")); //set form action
+
 let tempPrice = 0;
-for (let i = 0; i < itemsAlreadyInCart.length; i++) {
+for (let i = 0; i < itemsAlreadyInCart.length; i++) { // create cart items from items in local storage
     DOMCreateCartElement(itemsAlreadyInCart[i]);
     tempPrice += backToInt(itemsAlreadyInCart[i]['productPrice']);
 }
@@ -57,7 +59,7 @@ function readablePrice(price) {
     return '₦' + Number(price).toLocaleString();
 }
 function backToInt(price) {
-    return typeof price == 'string' ? Number(price.slice(1).split(',').join('')) : price;
+    return typeof price == 'string' ? Number(price.slice(1).split(',').join('')) : price; // remove currency comma characters from price
 }
 
 for (let price of document.querySelectorAll('main .price')) {
@@ -65,9 +67,9 @@ for (let price of document.querySelectorAll('main .price')) {
 }
 
 cart.style.setProperty('top', `${(cartButton.getBoundingClientRect().bottom + 10) - notificationBar.offsetHeight}px`);
-cart.style.setProperty('right', `${window.innerWidth - cartButton.getBoundingClientRect().right - 5}px`);
+cart.style.setProperty('right', `${window.innerWidth - cartButton.getBoundingClientRect().right - 5}px`); //position the cart under the toggle button
 navCategoryMenu.style.setProperty('left', `${allProductsButton.getBoundingClientRect().left}px`);
-navCategoryMenu.style.setProperty('top', `${allProductsButton.getBoundingClientRect().bottom - notificationBar.offsetHeight}px`);
+navCategoryMenu.style.setProperty('top', `${allProductsButton.getBoundingClientRect().bottom - notificationBar.offsetHeight}px`); //position the dropdown under the toggle button
 
 cartButton.onclick = (event) => {
     cart.classList.toggle('closed');
@@ -86,11 +88,12 @@ for (let i = 0; i < progressBars.length; i++) {
     else progressBarContainers[i].style.setProperty('--backgroundColor', 'orange');
 }
 
-for (let product of products) {
+for (let product of products) { //disable the add to cart buttons of products already in cart
     if (Boolean(localStorage.getItem('cart')) && JSON.parse(localStorage.getItem('cart')).some((obj) => {
         return obj.productId == product.getAttribute('data-product-id');
     })) {
         product.lastElementChild.textContent = "Added to cart";
+        product.lastElementChild.setAttribute('disabled', 'true');
         product.lastElementChild.classList.add('disabled');
     }
 }
@@ -137,8 +140,8 @@ function removeFromCart(DOMCartItem) {
             addToCartButton.appendChild(document.createElement('span')).setAttribute('class', 'button-text');
             addToCartButton.querySelector('.button-text').textContent = "Add to cart ";
             addToCartButton.querySelector('.button-text').appendChild(document.createElement('i')).setAttribute('class', 'fa fa-shopping-cart');
-        } 
-        
+        }
+
 
         if (currentItemsInCart.length <= 1) cart.querySelector('.cart-message').classList.remove('closed');
         document.querySelector('.cart-items-num').textContent = cart.querySelectorAll('.cart-item').length;
@@ -187,10 +190,10 @@ function DOMCreateCartElement(productObject) {
 
     cart.lastChild.querySelector('.cart-control-qty-text-box').onchange = (event) => {
         let cartItem = event.target.parentElement.parentElement;
-        cartTotalPrice.textContent = readablePrice(Array.from(document.querySelectorAll('.cart-item-price')).map((a) => { return a.textContent; }).reduce((a, b) => { return backToInt(a) + backToInt(b); }, '₦0'));
         if (Number(event.target.value) == 0 || event.target.value == '') removeFromCart(cartItem);
         else if (Number(event.target.value) > Number(cartItem.getAttribute('data-product-qty-available'))) event.target.value = cartItem.getAttribute('data-product-qty-available');
         cartItem.querySelector('.cart-item-price').textContent = readablePrice(backToInt(cartItem.getAttribute('data-product-price')) * Number(event.target.value));
+        cartTotalPrice.textContent = readablePrice(Array.from(document.querySelectorAll('.cart-item-price')).map((a) => { return a.textContent; }).reduce((a, b) => { return backToInt(a) + backToInt(b); }, '₦0'));
     };
 
     document.querySelector('.cart-items-num').textContent = cart.querySelectorAll('.cart-item').length;

@@ -119,6 +119,9 @@ nav .button-all-products {
     padding: 1em 2em;
     cursor: pointer;
 }
+.nav-category-menu > li:hover {
+    background-color: var(--primary-color);
+}
 .nav-category-menu > li + li {
     border-top: 1px solid #cccccc;
 }

@@ -43,7 +43,8 @@
     margin: 0;
     padding: 0;
 }
-body { 
+html, body { 
+    min-height: 100vh;
     font-size: var(--font-size);
     font-family: 'Noto Sans';
     color: white;
@@ -122,7 +123,12 @@ a.btn:hover {
 .small-text {
     font-size: calc(var(--font-size) * .8);
 }
-footer {
+.center {
+    text-align: center;
+}
+body > footer {
+    position: sticky;
+    top: 100vh;
     text-align: center;
     color: black;
     padding: var(--vertical-padding) var(--horizontal-padding);

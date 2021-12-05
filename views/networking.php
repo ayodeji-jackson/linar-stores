@@ -2,8 +2,16 @@
 require_once __DIR__ . "/../controllers/app_config.php";
 
 $product_table = new Database;
-$networking = $product_table->readAll("Product", "WHERE `Product_Category` = 'Networking'");
-$current_page = "Networking";
+$page = "Networking";
+
+if (isset($_GET['q'])) {
+    $search_query = htmlentities(strip_tags(stripslashes($_GET['q'])));
+    $product_array = $product_table->search("Product", "Name", $search_query);
+    $current_page = "Search Results for '$search_query' in $page";
+} else {
+    $product_array = $product_table->readAll("Product", "WHERE `Product_Category` = 'Networking'");
+    $current_page = $page;
+}
 
 ?>
 
@@ -14,10 +22,21 @@ $current_page = "Networking";
 <body>
     <?php require_once __DIR__ . "/../static/header.html"; ?>
     <main>
-        <h1 class="section-heading">Networking</h1>
+        <?php
+        if (!empty($product_array)) {
+            echo <<<_END
+                <h1 class="section-heading">$current_page</h1>
+            _END;
+        } else {
+            echo <<<_END
+                <h1 class="section-heading center grey">No search results for '$search_query' in $page 🙁</h1>
+            _END;
+        }
+
+        ?>
         <section class="product-section no-carousel">
             <?php
-            foreach ($networking as $product) {
+            foreach ($product_array as $product) {
                 echo "<div class='product' data-product-id='" . $product['Product_Id'] . "'>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 
                         src='/images/" . $product['Product_Image_URL'] . "' />
@@ -51,7 +70,8 @@ $current_page = "Networking";
         </section>
     </main>
     <?php require_once __DIR__ . "/../static/footer.html"; ?>
-    
+
     <script src="/scripts/script.js"></script>
 </body>
+
 </html>

@@ -120,6 +120,10 @@ a.category-button {
     color: var(--grey);
     font-size: calc(var(--font-size) / 1.2);
 }
+.product-category > a:hover {
+    text-decoration: none;
+    color: #777;
+}
 .product-name {
     margin: 0;
 }
