@@ -15,7 +15,8 @@ header {
 .notification-button {
     margin-left: auto;
 }
-.notification-button:hover .notification-link {
+.notification-button:hover .notification-link,
+.notification-button:focus .notification-link {
     text-decoration: underline;
 }
 .close {
@@ -39,15 +40,10 @@ header {
                 padding .25s ease;
 }
 
-nav button:hover, 
-nav button:focus, 
-nav .btn:hover, 
-nav .btn:focus, 
-header button:hover,
-header button:focus, 
-header .btn:hover, 
-header .btn:focus {
-    color: var(--dark-primary-color);
+nav .btn-primary, 
+header .btn-primary {
+    --hover-bg-color: var(--light-secondary-color);
+    --hover-text-color: var(--dark-primary-color);
 }
 
 nav {
@@ -76,6 +72,8 @@ nav {
 }
 
 nav .button-all-products {
+    font-size: 1em;
+    color: inherit;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     white-space: nowrap;
@@ -84,16 +82,13 @@ nav .button-all-products {
     width: 25%;
     max-width: fit-content;
 }
-.search-bar input {
+.search-bar > input {
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     width: calc(var(--horizontal-padding) + 22vw);
     border: 1px solid transparent;
     padding: 0 3em 0 1em;
 }
 .search-button {
-    background-color: transparent;
-    padding: 0;
-    box-shadow: initial;
     color: black;
     transform: translate3d(-2em, 0, 0);
     top: 0;
@@ -101,9 +96,7 @@ nav .button-all-products {
     font-size: calc(var(--font-size) * 1.4);
     cursor: pointer;
 }
-.search-button::before {
-    position: initial;
-}
+
 .nav-category-menu {
     overflow: hidden;
     list-style-type: none;
@@ -207,27 +200,25 @@ nav > ul.nav-list li:first-child {
 }
 .cart-control-qty {
     display: flex;
+    gap: .4em;
     flex-basis: 33%;
     justify-content: flex-end;
 }
 
 .minus-button, .plus-button {
-    color: white;
+    color: var(--dark-primary-color);
+    font-size: 2rem;
     font-weight: bold;
-    /* font-size: calc(var(--font-size) * 1.2); */
-    height: 1.5em;
-    width: 1.5em;
-    padding: 0;
     border-radius: 0;
 }
 .minus-button:hover, .plus-button:hover {
     color: var(--dark-primary-color);
 }
 .cart-control-qty-text-box {
-    height: 1.5em;
-    width: 2.5em;
+    width: 3em;
     text-align: center;
-    border: 1px solid var(--dark-primary-color);
+    border: 1px solid #ddd;
+    box-shadow: none;
 }
 .cart-message {
     color: #aaaaaa;
@@ -242,10 +233,14 @@ nav > ul.nav-list li:first-child {
     top: 85%;
     z-index: 2;
 }
-.cart-footer button {
-    color: white;
+.cart-footer > button {
+    background-color: white;
+    color: inherit;
+    --hover-bg-color: var(--dark-primary-color);
+    --hover-text-color: white;
     margin-left: auto;
     padding: .5em;
+    font-size: 1em;
 }
 .cart-footer .price {
     font-weight: bold;
@@ -288,7 +283,7 @@ nav > ul.nav-list li:first-child {
     .button-all-products {
         width: 20vw;
     }
-    .search-bar input {
+    .search-bar > input {
         width: 40vw;
     }
     .button-all-products {
@@ -297,4 +292,40 @@ nav > ul.nav-list li:first-child {
     .search-bar {
         margin-left: initial;
     }
+}
+
+.menu-toggle {
+    font-size: 2em;
+    position: absolute;
+    left: -.6em;
+    transition: all .2s ease;
+}
+.menu-toggle:hover {
+    color: #777;
+    left: -.4em;
+}
+
+
+.flyoutMenu {
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    padding: var(--vertical-padding) var(--horizontal-padding);
+    /* align-items: center; */
+    justify-content: center;
+    gap: 1em;
+    width: 40vw;
+    box-shadow: var(--box-shadow);
+    height: 100vh;
+    background-color: hsla(269, 75.4%, 20%, .7);
+    color: var(--lighter-primary-color);
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    transform: translate3d(-40vw, 0, 0);
+    transition: transform .3s cubic-bezier(0, .52, 0, 1);
+}
+.flyoutMenu.show {
+    transform: translate3d(0vw, 0, 0);
 }

@@ -18,7 +18,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
             <h6 class="hero-promo">25% off promotional sale</h6>
             <h1 class="hero-main-text">The tech store just for you.</h1>
             <h5 class="hero-side-text">What do you want?</h5>
-            <a href='all-products'><button class="hero-button"><span class='button-text'>Browse Products</span></button></a>
+            <a href="all-products" class="hero-button btn btn-primary"><span class='button-text'>Browse Products</span></a>
         </div>
     </aside>
     <main>
@@ -30,7 +30,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
                         <img class='category-image' alt='" . $category['Category_Name'] . "' src='/images/" . $category['Category_Image_URL'] . "' />
                         <h3>" . $category['Category_Name'] . "</h3>
                         <p>" . $category['Category_Description'] . "</p>
-                        <a href='" . strtolower($category['Category_Name']) . "' class='btn category-button'><span class='button-text'>Shop Now</span></a>
+                        <a href='" . strtolower($category['Category_Name']) . "' class='btn category-button btn-primary'><span class='button-text'>Shop Now</span></a>
                     </div>";
             }
             $category_array = NULL;
@@ -66,7 +66,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
                 echo "
                             <span class='qty-available'>$available_in_stock</span>
                         </div>
-                        <button class='add-to-cart-button' onclick='addToCart(this)'><span class='button-text'>Add to cart <i class='fa fa-shopping-cart'></i></span></button>
+                        <button class='add-to-cart-button btn btn-primary' onclick='addToCart(this)'><span class='button-text'>Add to cart <i class='fa fa-shopping-cart'></i></span></button>
                     </div>";
             }
             $product_array = NULL;

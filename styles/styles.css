@@ -6,7 +6,7 @@
 
 :root {
     box-sizing: border-box;
-    --font-size: min(1vw + .3rem, 1rem);
+    --font-size: min(1vw + .6rem, 1rem);
     --horizontal-padding: 8vw;
     --vertical-padding: 1vw;
     --primary-color: hsl(269, 75.4%, 49.4%);
@@ -49,38 +49,44 @@ html, body {
     font-family: 'Noto Sans';
     color: white;
 }
-button, .btn {
+.btn {
     background-color: var(--dark-primary-color);
-    color: inherit;
     border: 0;
     border-radius: var(--border-radius);
     padding: .8em 1em;
-    font: inherit;
+    font-family: inherit;
     overflow: hidden;
     box-shadow: var(--box-shadow);
     cursor: pointer;
-    position: relative;
-    transition: color .2s ease;
-    text-decoration: none;
 }
-button::before, .btn::before {
+.btn-primary {
+    transition: color .2s ease;
+    position: relative;
+}
+.btn-primary::before {
     content: "";
     width: 100%;
     height: 100%;
-    background-color: var(--light-secondary-color);
+    background-color: var(--hover-bg-color);
     position: absolute;
     top: -100%;
     left: 0;
     transition: top .1s ease;
 }
+.btn-primary:focus, .btn-primary:hover {
+    color: var(--hover-text-color);
+}
+.btn-transparent {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+}
 .button-text {
     position: relative;
     z-index: 1;
-}
-button:hover::before, 
-button:focus::before, 
-.btn:hover::before, 
-.btn:focus::before {
+} 
+.btn-primary:hover::before, 
+.btn-primary:focus::before {
     top: 0;
 }
 p, h1, h2, h3, h4, h5, h6 {
@@ -126,6 +132,18 @@ a.btn:hover {
 .center {
     text-align: center;
 }
+
+body .disabled {
+    box-shadow: initial;
+    cursor: initial;
+    --hover-bg-color: none;
+    --hover-text-color: none;
+    color: gray;
+}
+.disabled:hover {
+    color: gray;
+}
+
 body > footer {
     position: sticky;
     top: 100vh;
@@ -138,7 +156,10 @@ footer > * + * {
     margin-top: 1em;
 }
 footer a {
-    font-size: 2em; 
+    font-size: 2em;
+}
+footer a:hover {
+    color: #333;
 }
 footer a + a {
     margin-left: .5em;

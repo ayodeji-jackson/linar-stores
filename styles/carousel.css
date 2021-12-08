@@ -2,12 +2,18 @@
     height: 2em;
     width: 2em;
 }
+.flickity-button {
+    transition: background-color .2s ease;
+}
 .flickity-button-icon {
     fill: var(--dark-primary-color);
     transition: fill .2s ease;
 }
 .flickity-button:hover .flickity-button-icon {
     fill: white;
+}
+.flickity-button:hover {
+    background-color: var(--dark-primary-color);
 }
 .flickity-prev-next-button.previous {
     left: -1vw;

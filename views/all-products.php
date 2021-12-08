@@ -61,7 +61,7 @@ if (isset($_GET['q'])) {
                 echo "
                             <span class='qty-available'>$available_in_stock</span>
                         </div>
-                        <button class='add-to-cart-button' onclick='addToCart(this)'><span class='button-text'>Add to cart <i class='fa fa-shopping-cart'></i></span></button>
+                        <button class='add-to-cart-button btn btn-primary' onclick='addToCart(this)'><span class='button-text'>Add to cart <i class='fa fa-shopping-cart'></i></span></button>
                     </div>";
             }
             $product_table = NULL;

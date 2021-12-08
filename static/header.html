@@ -1,30 +1,38 @@
 <header class="notification">
     <P class="notification-text"><i class="fa fa-box"></i>Free shipping on orders above ₦50,000</P>
-    <a href="#" class="notification-button" title="Coming soon"><button><span class='button-text'>Don't miss out. <span class="notification-link">Subscribe Now</span></span></button></a>
-    <span class="close">✕</span>
+    <a href="#" class="notification-button btn btn-primary"><span class='button-text'>Don't miss out. <span class="notification-link">Subscribe Now</span></span></a>
+    <button class="close btn btn-transparent">✕</button>
 </header>
 <nav>
     <a href="/"><img src="/images/logo.png" alt="Linar Stores" class="logo" /></a>
     <form class="search-bar" method="GET">
-        <button class="btn button-all-products toggle" type="button"><span class='button-text'>All Products<i class="fa fa-angle-down"></i></span></button>
+        <button class="btn btn-primary button-all-products toggle" type="button"><span class='button-text'>All Products<i class="fa fa-angle-down"></i></span></button>
         <ul class="nav-category-menu shut">
             <li class="nav-category-menu-item">Portables</li>
             <li class="nav-category-menu-item">Computers</li>
             <li class="nav-category-menu-item">Networking</li>
         </ul>
         <input type="search" name="q" placeholder="Enter keywords" required />
-        <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+        <button class="search-button btn btn-transparent" type="submit"><i class="fa fa-search"></i></button>
     </form>
     <ul class="nav-list">
         <li title="Coming soon"><i class="fa fa-user"></i>Guest</li>
         <li class="cart-button"><i class="fa fa-shopping-cart"></i>Cart<span class="cart-items-num">0</span></li>
         <li></li>
     </ul>
+    <button class="menu-toggle btn btn-transparent"><i class="fa fa-bars"></i></button>
+    <div class="flyoutMenu">
+        <h2><a href="/"><i class="fa fa-home"></i>Home</a></h2>
+        <h2><a href="all-products"><i class="fa fa-shopping-bag"></i>All Products</a></h2>
+        <h2><a href="portables"><i class="fa fa-mobile-alt"></i>Portables</a></h2>
+        <h2><a href="computers"><i class="fa fa-laptop"></i>Computers</a></h2>
+        <h2><a href="networking"><i class="fa fa-network-wired"></i>Networking</a></h2>
+    </div>
     <div class="cart closed">
         <p class="cart-message">Your cart is empty</p>
         <div class="cart-footer">
             <p>Total: <span class="price">₦0</span></p>
-            <button><span class="button-text disabled" title="Coming soon">Checkout</span></button>
+            <button class="btn btn-primary"><span class="button-text" title="Coming soon">Checkout</span></button>
         </div>
     </div>
 </nav>

@@ -6,6 +6,7 @@ const progressBarContainers = document.querySelectorAll('.progressbar-container'
 const progressBars = document.querySelectorAll('.progressbar');
 const products = document.querySelectorAll('.product');
 const navCategoryMenu = document.querySelector('.nav-category-menu');
+const quantityBoxes = document.querySelectorAll('.cart-control-qty-text-box');
 const allProductsButton = document.querySelector('.button-all-products');
 let itemsAlreadyInCart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -37,6 +38,7 @@ let tempPrice = 0;
 for (let i = 0; i < itemsAlreadyInCart.length; i++) { // create cart items from items in local storage
     DOMCreateCartElement(itemsAlreadyInCart[i]);
     tempPrice += backToInt(itemsAlreadyInCart[i]['productPrice']);
+    document.querySelectorAll('.cart-control-qty-text-box')[i].value = itemsAlreadyInCart[i]['productQty'];
 }
 cartTotalPrice.textContent = readablePrice(tempPrice);
 
@@ -104,6 +106,13 @@ function addObjectToLocalStorage(item, obj) {
         localStorage.setItem('cart', replaceSubstrAt(itemInLocalStorage, itemInLocalStorage.length - 1, ', ' + JSON.stringify(obj))) :
         localStorage.setItem('cart', JSON.stringify([obj]));
 }
+function saveQtyToLocalStorage(id, item) {
+    let cart = JSON.parse(localStorage.getItem('cart'))
+    cart.forEach((prod) => {
+        if (prod.productId == id) prod.productQty = item;
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
 
 function addToCart(addToCartButton) {
     if (!addToCartButton.classList.contains('disabled')) {
@@ -162,14 +171,14 @@ function DOMCreateCartElement(productObject) {
     cart.lastChild.querySelector('.cart-item-name').textContent = productObject['productName'];
     cart.lastChild.querySelector('.cart-item-price').textContent = productObject['productPrice'];
     cart.lastChild.appendChild(document.createElement('div')).setAttribute('class', 'cart-control-qty');
-    cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'minus-button');
+    cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'minus-button btn btn-transparent');
     cart.lastChild.querySelector('.minus-button').appendChild(document.createElement('span')).setAttribute('class', 'button-text');
     cart.lastChild.querySelector('.minus-button').querySelector('.button-text').textContent = '-';
     cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('input')).setAttribute('class', 'cart-control-qty-text-box');
     cart.lastChild.querySelector('.cart-control-qty-text-box').setAttribute('type', 'number');
     cart.lastChild.querySelector('.cart-control-qty-text-box').setAttribute('value', 1);
     cart.lastChild.querySelector('.cart-control-qty-text-box').setAttribute('onKeyPress', "if (this.value.length == 2) return false;");
-    cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'plus-button');
+    cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'plus-button btn btn-transparent');
     cart.lastChild.querySelector('.plus-button').appendChild(document.createElement('span')).setAttribute('class', 'button-text');
     cart.lastChild.querySelector('.plus-button').querySelector('.button-text').textContent = '+';
 
@@ -194,8 +203,24 @@ function DOMCreateCartElement(productObject) {
         else if (Number(event.target.value) > Number(cartItem.getAttribute('data-product-qty-available'))) event.target.value = cartItem.getAttribute('data-product-qty-available');
         cartItem.querySelector('.cart-item-price').textContent = readablePrice(backToInt(cartItem.getAttribute('data-product-price')) * Number(event.target.value));
         cartTotalPrice.textContent = readablePrice(Array.from(document.querySelectorAll('.cart-item-price')).map((a) => { return a.textContent; }).reduce((a, b) => { return backToInt(a) + backToInt(b); }, '₦0'));
+        saveQtyToLocalStorage(cartItem.getAttribute('data-product-id'), event.target.value);
     };
 
     document.querySelector('.cart-items-num').textContent = cart.querySelectorAll('.cart-item').length;
 
+}
+
+let menuToggle = document.querySelector('.menu-toggle');
+menuToggle.addEventListener('click', showMenu, false);
+let flyoutMenu = document.querySelector('.flyoutMenu');
+flyoutMenu.addEventListener('click', hideMenu, false);
+
+function showMenu(e) {
+    flyoutMenu.classList.add("show");
+    // document.body.style.overflow = "hidden";
+}
+function hideMenu(e) {
+    flyoutMenu.classList.remove("show");
+    e.stopPropagation();
+    // document.body.style.overflow = "auto";
 }

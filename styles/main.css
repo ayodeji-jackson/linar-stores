@@ -4,7 +4,7 @@
     background-image: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.7)), url("/images/hero_image.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    height: 50vh;
+    height: min(700px, 75vh);
 }
 
 .hero > * + * {
@@ -23,15 +23,12 @@
 }
 .hero-button {
     margin: 3em 0 0;
+    display: inline-block;
     background-image: linear-gradient(45deg, var(--light-primary-color), var(--light-secondary-color));
     color: var(--dark-secondary-color);
+    --hover-bg-color: var(--dark-primary-color);
 }
-.hero-button::before {
-    background-color: var(--dark-primary-color);
-}
-.hero-button:hover, .hero-button:focus {
-    color: white;
-}
+
 @media (min-width: 35em) {
     .hero {
         padding-top: 5em;
@@ -41,7 +38,6 @@
     .hero {
         padding-top: 7em;
         padding-bottom: 7em;
-        height: 75vh;
     }
 }
 
@@ -49,20 +45,12 @@ main {
     color: var(--dark-primary-color);
     padding: var(--vertical-padding) var(--horizontal-padding)
 }
-main button, 
-main .btn {
+main .btn-primary {
     background-color: white;
+    --hover-bg-color: var(--dark-primary-color);
+    --hover-text-color: white;
 }
-main button::before, 
-main .btn::before {
-    background-color: var(--dark-primary-color);
-}
-main button:hover,
-main button:focus, 
-main .btn:hover, 
-main .btn:focus {
-    color: white;
-}
+
 section {
     margin: 2em 0;
 }
@@ -84,10 +72,10 @@ section {
     margin: .5em 0 2em;
     color: grey;
 }
-a.category-button {
+.category-button {
     width: max(55px, 12vw);
-    font-size: calc(var(--font-size) / 1.2);
     font-weight: 550;
+    font-size: .9em;
     text-decoration: none;
     margin-top: auto;
     padding: 1em;
@@ -180,6 +168,7 @@ a.category-button {
     font-weight: bold;
 }
 .add-to-cart-button {
+    color: var(--dark-primary-color);
     margin-top: auto;
     align-self: flex-end;
     width: 40%;
@@ -188,15 +177,4 @@ a.category-button {
 }
 .add-to-cart-button::after {
     box-shadow: none;
-}
-
-main .disabled {
-    box-shadow: initial;
-}
-main .disabled:hover, main .disabled:focus {
-    cursor: inherit;
-    color: inherit;
-}
-main .disabled::before {
-    background: none;
 }
