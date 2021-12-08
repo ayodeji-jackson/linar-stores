@@ -34,11 +34,6 @@
         padding-top: 5em;
         padding-bottom: 5em;
     }
-} @media (min-width: 50em) {
-    .hero {
-        padding-top: 7em;
-        padding-bottom: 7em;
-    }
 }
 
 main {
@@ -73,7 +68,7 @@ section {
     color: grey;
 }
 .category-button {
-    width: max(55px, 12vw);
+    width: max(101px, 10em);
     font-weight: 550;
     font-size: .9em;
     text-decoration: none;

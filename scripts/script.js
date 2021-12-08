@@ -32,6 +32,7 @@ for (let item of navCategoryMenu.children) {
     }
 }
 
+allProductsButton.nextElementSibling
 allProductsButton.parentElement.setAttribute('action', allProductsButton.textContent.toLowerCase().replace(/\s+/g, "-")); //set form action
 
 let tempPrice = 0;
@@ -78,9 +79,12 @@ cartButton.onclick = (event) => {
     event.stopPropagation();
 };
 
-document.querySelector('body').onclick = (event) => {
-    if (!(cart.classList.contains('closed') || event.target == cart || Array.from(cart.querySelectorAll('*')).includes(event.target))) cart.classList.add('closed');
-};
+function closePopUp(el, className) {
+    document.querySelector('body').onclick = (event) => {
+        if (!(el.classList.contains(className) || event.target == el || Array.from(el.querySelectorAll('*')).includes(el.target))) el.classList.toggle(className);
+    };
+}
+closePopUp(cart, "closed");
 
 for (let i = 0; i < progressBars.length; i++) {
     let progressBarVal = progressBars[i].getAttribute('aria-valuenow');
@@ -217,10 +221,10 @@ flyoutMenu.addEventListener('click', hideMenu, false);
 
 function showMenu(e) {
     flyoutMenu.classList.add("show");
-    // document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
 }
 function hideMenu(e) {
     flyoutMenu.classList.remove("show");
     e.stopPropagation();
-    // document.body.style.overflow = "auto";
+    document.body.style.overflow = "auto";
 }

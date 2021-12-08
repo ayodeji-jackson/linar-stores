@@ -6,7 +6,7 @@
 
 :root {
     box-sizing: border-box;
-    --font-size: min(1vw + .6rem, 1rem);
+    --font-size: min(1vw + .51rem, 1rem);
     --horizontal-padding: 8vw;
     --vertical-padding: 1vw;
     --primary-color: hsl(269, 75.4%, 49.4%);
@@ -20,24 +20,8 @@
     --grey: #aaaaaa;
     --border-radius: .4em;
 }
-@media (max-width: 39em) {
-    :root {
-        --horizontal-padding: 5vw;
-    }
-}
-@media (max-width: 27em) {
-    :root {
-        --horizontal-padding: 3vw;
-    }
-    span.close {
-        position: initial;
-    }
-}
-@media (max-width: 22em) {
-    :root {
-        --horizontal-padding: .5em;
-    }
-}
+
+
 *, ::before, ::after {
     box-sizing: inherit;
     margin: 0;
