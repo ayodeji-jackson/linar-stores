@@ -29,7 +29,7 @@ if (isset($_GET['q'])) {
             _END;
         } else {
             echo <<<_END
-                <h1 class="section-heading center grey">No search results for '$search_query' in $page 🙁</h1>
+                <h1 class="section-heading center grey">🙁 No search results for '$search_query' in $page</h1>
             _END;
         }
 

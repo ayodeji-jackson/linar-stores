@@ -149,7 +149,7 @@ footer a + a {
     margin-left: .5em;
 }
 
-@media (min-width: 90em) {
+@media (min-width: 160em) {
     :root {
         --font-size: 22px;
     }

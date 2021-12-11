@@ -1,5 +1,5 @@
 const notificationBar = document.querySelector('.notification');
-const cartButton = document.querySelector('.cart-button');
+const cartButton = document.querySelector('.cart-button > .btn');
 const cart = document.querySelector('.cart');
 const cartTotalPrice = document.querySelector('.cart-footer .price');
 const progressBarContainers = document.querySelectorAll('.progressbar-container');
@@ -76,12 +76,12 @@ cart.style.setProperty('right', `${window.innerWidth - cartButton.getBoundingCli
 navCategoryMenu.style.setProperty('left', `${allProductsButton.offsetLeft}px`);
 navCategoryMenu.style.setProperty('top', `${allProductsButton.offsetHeight}px`); //position the dropdown under the toggle button
 
-cartButton.onclick = (event) => {
+cartButton.onclick = () => {
     cart.classList.toggle('closed');
 };
 
 function closePopUp(event, toggle, el, className, func) {
-    if (!el.classList.contains(className) && event.target != el && event.target != toggle && event.target != toggle.children[0] && !Array.from(el.querySelectorAll('*')).includes(event.target)) {
+    if (!el.classList.contains(className) && event.target != el && event.target != toggle && !Array.from(toggle.querySelectorAll('*')).includes(event.target) && !Array.from(el.querySelectorAll('*')).includes(event.target)) {
         if (!func) el.classList.add(className);
         else func(event);
     }
@@ -89,7 +89,7 @@ function closePopUp(event, toggle, el, className, func) {
 
 document.body.onclick = (event) => {
     closePopUp(event, cartButton, cart, "closed");
-    closePopUp(event, allProductsButton, navCategoryMenu, 'shut', slideDown);      
+    closePopUp(event, allProductsButton, navCategoryMenu, 'shut', slideDown);
 };
 
 for (let i = 0; i < progressBars.length; i++) {
