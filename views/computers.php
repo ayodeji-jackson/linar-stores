@@ -21,7 +21,7 @@ if (isset($_GET['q'])) {
 
 <body>
     <?php require_once __DIR__ . "/../static/header.html"; ?>
-    <main>
+    <main class="no-carousel-container">
         <?php
         if (!empty($product_array)) {
             echo <<<_END
@@ -36,6 +36,7 @@ if (isset($_GET['q'])) {
         ?>
         <section class="product-section no-carousel">
             <?php
+            shuffle($product_array);
             foreach ($product_array as $product) {
                 echo "<div class='product' data-product-id='" . $product['Product_Id'] . "'>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 

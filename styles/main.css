@@ -4,15 +4,16 @@
     background-image: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.7)), url("/images/hero_image.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    height: min(700px, 75vh);
+    height: clamp(350px, calc(400px + 20vw), 75vh);
 }
 
 .hero > * + * {
     margin: .5em 0 0;
 }
 .hero-promo {
+    font-size: .7em;
     text-transform: uppercase;
-    color: var(--light-primary-color);
+    color: var(--lighter-primary-color);
 }
 .hero-main-text {
     font-size: calc(var(--font-size) + 1.4rem);
@@ -29,13 +30,6 @@
     --hover-bg-color: var(--dark-primary-color);
 }
 
-@media (min-width: 35em) {
-    .hero {
-        padding-top: 5em;
-        padding-bottom: 5em;
-    }
-}
-
 main {
     color: var(--dark-primary-color);
     padding: var(--vertical-padding) var(--horizontal-padding)
@@ -50,7 +44,12 @@ section {
     margin: 2em 0;
 }
 .section-heading {
+    display: flex;
     margin-top: 2em;
+    align-items: baseline;
+}
+.section-heading .small-text {
+    margin-left: auto;
 }
 
 .category {
@@ -163,6 +162,7 @@ section {
     font-weight: bold;
 }
 .add-to-cart-button {
+    white-space: nowrap;
     color: var(--dark-primary-color);
     margin-top: auto;
     align-self: flex-end;

@@ -8,17 +8,20 @@ const products = document.querySelectorAll('.product');
 const navCategoryMenu = document.querySelector('.nav-category-menu');
 const quantityBoxes = document.querySelectorAll('.cart-control-qty-text-box');
 const allProductsButton = document.querySelector('.button-all-products');
+const toggle = document.querySelector('.toggle');
+const loadingScreen = document.querySelector('.loading-screen');
 let itemsAlreadyInCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-let toggle = document.querySelector('.toggle');
-let height = navCategoryMenu.scrollHeight;
+document.body.onload = () => {
+    loadingScreen.remove();
+}
 
 toggle.onclick = slideDown;
 function slideDown(event) {
     event.preventDefault();
     navCategoryMenu.classList.toggle('shut');
     if (navCategoryMenu.classList.contains('shut')) navCategoryMenu.style.setProperty('height', '0');
-    else navCategoryMenu.style.setProperty('height', height + 'px');
+    else navCategoryMenu.style.setProperty('height', navCategoryMenu.scrollHeight + 'px');
 }
 
 for (let item of navCategoryMenu.children) {
@@ -32,7 +35,6 @@ for (let item of navCategoryMenu.children) {
     }
 }
 
-allProductsButton.nextElementSibling
 allProductsButton.parentElement.setAttribute('action', allProductsButton.textContent.toLowerCase().replace(/\s+/g, "-")); //set form action
 
 let tempPrice = 0;
@@ -71,20 +73,24 @@ for (let price of document.querySelectorAll('main .price')) {
 
 cart.style.setProperty('top', `${(cartButton.getBoundingClientRect().bottom + 10) - notificationBar.offsetHeight}px`);
 cart.style.setProperty('right', `${window.innerWidth - cartButton.getBoundingClientRect().right - 5}px`); //position the cart under the toggle button
-navCategoryMenu.style.setProperty('left', `${allProductsButton.getBoundingClientRect().left}px`);
-navCategoryMenu.style.setProperty('top', `${allProductsButton.getBoundingClientRect().bottom - notificationBar.offsetHeight}px`); //position the dropdown under the toggle button
+navCategoryMenu.style.setProperty('left', `${allProductsButton.offsetLeft}px`);
+navCategoryMenu.style.setProperty('top', `${allProductsButton.offsetHeight}px`); //position the dropdown under the toggle button
 
 cartButton.onclick = (event) => {
     cart.classList.toggle('closed');
-    event.stopPropagation();
 };
 
-function closePopUp(el, className) {
-    document.querySelector('body').onclick = (event) => {
-        if (!(el.classList.contains(className) || event.target == el || Array.from(el.querySelectorAll('*')).includes(el.target))) el.classList.toggle(className);
-    };
+function closePopUp(event, toggle, el, className, func) {
+    if (!el.classList.contains(className) && event.target != el && event.target != toggle && event.target != toggle.children[0] && !Array.from(el.querySelectorAll('*')).includes(event.target)) {
+        if (!func) el.classList.add(className);
+        else func(event);
+    }
 }
-closePopUp(cart, "closed");
+
+document.body.onclick = (event) => {
+    closePopUp(event, cartButton, cart, "closed");
+    closePopUp(event, allProductsButton, navCategoryMenu, 'shut', slideDown);      
+};
 
 for (let i = 0; i < progressBars.length; i++) {
     let progressBarVal = progressBars[i].getAttribute('aria-valuenow');

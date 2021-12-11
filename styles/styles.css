@@ -148,3 +148,9 @@ footer a:hover {
 footer a + a {
     margin-left: .5em;
 }
+
+@media (min-width: 90em) {
+    :root {
+        --font-size: 22px;
+    }
+}

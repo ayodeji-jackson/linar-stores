@@ -1,3 +1,17 @@
+.loading-screen {
+    z-index: 20;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    color: var(--dark-primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 header {
     padding: var(--vertical-padding) var(--horizontal-padding); 
     background-color: var(--light-primary-color);
@@ -8,6 +22,9 @@ header {
     font-size: calc(var(--font-size) * .9);
     max-height: 100px;
     align-items: center;
+}
+.notification-text {
+   white-space: nowrap;
 }
 .notification-link {
     font-weight: bold;
@@ -94,8 +111,8 @@ nav .button-all-products {
 .search-button {
     color: black;
     position: absolute;
-    left: max(calc(79.5% - .01vw));
-    top: .3em;
+    left: calc(79.5% - .01vw);
+    top: .4em;
     font-size: 1.4em;
     cursor: pointer;
 }
@@ -105,7 +122,8 @@ nav .button-all-products {
     list-style-type: none;
     background-color: var(--dark-primary-color);
     position: absolute;
-    left: 0;
+    top: 1em;
+    left: 1em;
     height: auto;
     box-shadow: var(--box-shadow);
     transition: height .3s ease;
@@ -260,38 +278,6 @@ nav > ul button {
     box-shadow: var(--box-shadow);
 } /* All the calc()s makes it responsive */
 
-@media (max-width: 20.625em) {
-    .notification, nav {
-        flex-direction: column;
-    }
-    nav > ul.nav-list {
-        margin: initial;
-    }
-    .notification-button {
-        margin: 0;
-    }
-    .close {
-        font-size: 1rem;
-    }
-    .button-all-products {
-        width: 20vw;
-    }
-    .search-bar > input {
-        width: 40vw;
-    }
-    .button-all-products {
-        width: 25vw;
-    }
-    .search-bar {
-        margin-left: initial;
-    }
-}
-@media (min-width: 90em) {
-    .search-button {
-        left: calc(78% - .2vw);
-    }
-}
-
 .menu-toggle {
     font-size: 2em;
     position: absolute;
@@ -328,4 +314,55 @@ nav > ul button {
 }
 .flyoutMenu.show {
     transform: translate3d(0vw, 0, 0);
+}
+
+@media (max-width: 8.375em) {
+    .notification-button {
+        width: 75%;
+    }
+}
+@media (max-width: 20.625em) {
+    .notification, nav {
+        flex-direction: column;
+        
+    }
+    nav > ul.nav-list {
+        margin: initial;
+    }
+    .notification-text {
+        text-align: center;
+        white-space: normal;
+    }
+    .notification-button {
+        margin: 0 0 1em;
+    }
+    .close {
+        top: .2em;
+        font-size: 2rem;
+    }
+    .button-all-products {
+        width: 20vw;
+    }
+    .search-bar > input {
+        width: 40vw;
+    }
+    .button-all-products {
+        width: 25vw;
+    }
+    .search-bar {
+        margin-left: initial;
+    }
+    .menu-toggle {
+        top: 2.5em;
+    }
+}
+@media (max-width: 15.625em) {
+    .search-button {
+        left: 75%;
+    }
+}
+@media (min-width: 90em) {
+    .search-button {
+        left: calc(78% - .2vw);
+    }
 }
