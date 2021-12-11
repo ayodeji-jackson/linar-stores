@@ -83,6 +83,7 @@ section {
 
 .product {
     display: flex;
+    position: relative;
     flex-direction: column;
     width: 20em;
     box-shadow: 0 .7em 1.5em hsla(0, 0%, 0%, 0.116);
@@ -92,6 +93,21 @@ section {
 }
 .product > * {
     margin-bottom: 1em;
+}
+.product-savings {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+    padding: 1em .5em;
+    color: white;
+    box-shadow: var(--box-shadow);
+    border-radius: .6em;
+    background-color: rgb(112, 247, 112);
+    text-transform: uppercase;
+    cursor: default;
+}
+.product-savings > .price {
+    font-weight: bold;
 }
 .product-image {
     height: 13em;

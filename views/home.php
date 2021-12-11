@@ -11,7 +11,7 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once __DIR__ . '/../static/head.html'; ?>
-<body>
+<body class="loading">
     <?php require_once __DIR__ . '/../static/header.html'; ?>
     <aside>
         <div class="hero">
@@ -42,7 +42,9 @@ $product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Da
             <?php
 
             foreach ($product_array_recent as $product) {
+                $amount_saved = $product['Product_ActualPrice'] - $product['Product_DiscountPrice'];
                 echo "<div class='product cell-carousel' data-product-id='" . $product['Product_Id'] . "'>
+                        <div class='product-savings'><i class='fa fa-percent'></i> Save <span class='price'>$amount_saved</span></div>
                         <img class='product-image' alt='" . $product['Product_Name'] . "' 
                         src='/images/" . $product['Product_Image_URL'] . "' />
                         <h3 class='product-category'><a href='" . strtolower($product['Product_Category']) . "'>" . $product['Product_Category'] . "</a></h3>

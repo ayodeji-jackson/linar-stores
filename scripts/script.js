@@ -14,6 +14,7 @@ let itemsAlreadyInCart = JSON.parse(localStorage.getItem('cart')) || [];
 
 document.body.onload = () => {
     loadingScreen.remove();
+    document.body.classList.remove('loading');
 }
 
 toggle.onclick = slideDown;
@@ -40,7 +41,7 @@ allProductsButton.parentElement.setAttribute('action', allProductsButton.textCon
 let tempPrice = 0;
 for (let i = 0; i < itemsAlreadyInCart.length; i++) { // create cart items from items in local storage
     DOMCreateCartElement(itemsAlreadyInCart[i]);
-    tempPrice += backToInt(itemsAlreadyInCart[i]['productPrice']);
+    tempPrice += backToInt(itemsAlreadyInCart[i]['productPrice']) * itemsAlreadyInCart[i]['productQty'];
     document.querySelectorAll('.cart-control-qty-text-box')[i].value = itemsAlreadyInCart[i]['productQty'];
 }
 cartTotalPrice.textContent = readablePrice(tempPrice);
@@ -179,7 +180,7 @@ function DOMCreateCartElement(productObject) {
     cart.lastChild.querySelector('.cart-item-text').appendChild(document.createElement('p')).setAttribute('class', 'cart-item-name');
     cart.lastChild.querySelector('.cart-item-text').appendChild(document.createElement('p')).setAttribute('class', 'cart-item-price');
     cart.lastChild.querySelector('.cart-item-name').textContent = productObject['productName'];
-    cart.lastChild.querySelector('.cart-item-price').textContent = productObject['productPrice'];
+    cart.lastChild.querySelector('.cart-item-price').textContent = readablePrice(backToInt(productObject['productPrice']) * productObject['productQty']);
     cart.lastChild.appendChild(document.createElement('div')).setAttribute('class', 'cart-control-qty');
     cart.lastChild.querySelector('.cart-control-qty').appendChild(document.createElement('button')).setAttribute('class', 'minus-button btn btn-transparent');
     cart.lastChild.querySelector('.minus-button').appendChild(document.createElement('span')).setAttribute('class', 'button-text');

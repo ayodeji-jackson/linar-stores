@@ -33,6 +33,9 @@ html, body {
     font-family: 'Noto Sans';
     color: white;
 }
+.loading {
+    overflow: hidden;
+}
 .btn {
     background-color: var(--dark-primary-color);
     border: 0;
