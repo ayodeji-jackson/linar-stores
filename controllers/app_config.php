@@ -5,7 +5,7 @@ class Database {
 
     function __construct() {
         try {
-            $this->dbObj = pg_connect(getenv("DATABASE_URL"));
+            $this->dbObj = pg_pconnect(getenv("DATABASE_URL"));
             echo $this->dbObj;
         } catch(Exception $e) {
             return $e->getMessage();
