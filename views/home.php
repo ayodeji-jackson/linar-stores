@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../controllers/app_config.php';
 
 $category_table = new Database;
-$category_array = $category_table->readAll("linarStores.Category");
+$category_array = $category_table->readAll("Category");
 print_r($category_array);
 unset($category_array);
 $product_table = new Database;
