@@ -1,0 +1,12 @@
+.page-404 {
+    text-align: center;
+}
+.page-404-heading {
+    margin-bottom: 1em;
+}
+.page-404-message {
+    color: var(--grey);
+}
+.page-404-message a {
+    color: var(--dark-primary-color);
+}
