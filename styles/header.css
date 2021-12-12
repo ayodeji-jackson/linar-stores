@@ -124,7 +124,7 @@ nav .button-all-products {
 .search-button {
     color: black;
     position: absolute;
-    left: calc(79.5% - .02vw);
+    left: calc(79.5% - .01vw);
     top: .4em;
     font-size: 1.4em;
     cursor: pointer;
@@ -374,8 +374,8 @@ nav > ul button {
         left: 75%;
     }
 }
-@media (min-width: 90em) {
+@media (min-width: 116.25em) {
     .search-button {
-        left: calc(78% - .2vw);
+        left: calc(79% - .2vw);
     }
 }
