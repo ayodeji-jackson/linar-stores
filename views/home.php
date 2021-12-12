@@ -2,9 +2,9 @@
 require_once __DIR__ . '/../controllers/app_config.php';
 
 $category_table = new Database;
-$category_array = $category_table->readAll("Category");
+$category_array = $category_table->readAll("linarStores.Category");
 $product_table = new Database;
-$product_array_recent = $product_table->readAll("Product", "ORDER BY `Product_Date` DESC LIMIT 5");
+$product_array_recent = $product_table->readAll("linarStores.Product", "ORDER BY `Product_Date` DESC LIMIT 5");
 
 ?>
 
