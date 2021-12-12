@@ -18,7 +18,7 @@ class Database {
         return pg_fetch_all(pg_query($this->dbObj, "SELECT * FROM $tableName $extra_param"), PGSQL_ASSOC);
     }
     function search($tableName, $column, $value, $extra_param = "") {
-        return pg_fetch_all(pg_query($this->dbObj, "SELECT * FROM $tableName WEHRE to_tsvector(Product_" . "$column) @@ to_tsquery($value) $extra_param"), PGSQL_ASSOC);
+        return pg_fetch_all(pg_query($this->dbObj, "SELECT * FROM $tableName WEHRE to_tsvector(Product_" . "$column) @@ to_tsquery('$value') $extra_param"), PGSQL_ASSOC);
     }
     function __destruct() {
         pg_close($this->dbObj);
