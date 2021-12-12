@@ -3,8 +3,7 @@ require_once __DIR__ . '/../controllers/app_config.php';
 
 $category_table = new Database;
 $category_array = $category_table->readAll("linarStores.Category");
-echo $category_array[0]['category_name'];
-unset($category_array);
+
 $product_table = new Database;
 // $product_array_recent = $product_table->readAll("linarStores.Product", "ORDER BY `Product_Date` DESC LIMIT 5");
 
