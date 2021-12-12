@@ -7,7 +7,7 @@ class Database {
         try {
             $db = parse_url(getenv("DATABASE_URL"));
 
-            $dbObj = new PDO("pgsql:" . sprintf(
+            $dbObj = pg_pconnect("pgsql:" . sprintf(
                 "host=%s;port=%s;user=%s;password=%s;dbname=%s",
                 $db["host"],
                 $db["port"],
@@ -15,7 +15,7 @@ class Database {
                 $db["pass"],
                 ltrim($db["path"], "/")
             ));
-        } catch(PDOException $e) {
+        } catch(Exception $e) {
             return $e->getMessage();
             die();
         }
