@@ -7,7 +7,7 @@ class Database {
         try {
             $db = parse_url(getenv("DATABASE_URL"));
 
-            $dbObj = pg_pconnect("pgsql:" . sprintf(
+            $this->dbObj = pg_pconnect("pgsql:" . sprintf(
                 "host=%s;port=%s;user=%s;password=%s;dbname=%s",
                 $db["host"],
                 $db["port"],
