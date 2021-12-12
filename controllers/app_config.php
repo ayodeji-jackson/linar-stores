@@ -5,16 +5,7 @@ class Database {
 
     function __construct() {
         try {
-            $db = parse_url(getenv("DATABASE_URL"));
-
-            $this->dbObj = pg_pconnect("pgsql:" . sprintf(
-                "host=%s;port=%s;user=%s;password=%s;dbname=%s",
-                $db["host"],
-                $db["port"],
-                $db["user"],
-                $db["pass"],
-                ltrim($db["path"], "/")
-            ));
+            $this->dbObj = pg_connect(getenv("DATABASE_URL"));
         } catch(Exception $e) {
             return $e->getMessage();
             die();
