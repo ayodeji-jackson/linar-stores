@@ -9,7 +9,7 @@ if (isset($_GET['q'])) {
     $product_array = $product_table->search("linarStores.Product", "Name", $search_query);
     $current_page = "Search Results for '$search_query' in $page";
 } else {
-    $product_array = $product_table->readAll("linarStores.Product", "WHERE `Product_Category` = 'Portables'");
+    $product_array = $product_table->readAll("linarStores.Product", "WHERE Product_Category = $page");
     $current_page = $page;
 }
 
