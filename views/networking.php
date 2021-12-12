@@ -42,7 +42,7 @@ if (isset($_GET['q'])) {
                 echo "<div class='product' data-product-id='" . $product['product_id'] . "'>
                         <div class='product-savings'><i class='fa fa-percent'></i> Save <span class='price'>$amount_saved</span></div>
                         <img class='product-image' alt='" . $product['product_name'] . "' 
-                        src='/images/" . $product['product_Image_url'] . "' />
+                        src='/images/" . $product['product_image_url'] . "' />
                         <h3 class='product-category'>" . $product['product_category'] . "</h3>
                         <p class='product-name'>" . $product['product_name'] . "</p>
                         <div class='rating' data-rating='" . $product['product_rating'] . "'>
