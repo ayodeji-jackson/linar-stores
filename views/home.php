@@ -61,7 +61,7 @@ $product_array_recent = $product_table->readAll("linarStores.Product", "ORDER BY
                         </div>
                         <div class='price-container'>
                             <span class='price product-discount-price'>" . $product['product_discountprice'] . "</span>
-                            <span class='price product-actual-price'>" . $product['Product_actualprice'] . "</span>
+                            <span class='price product-actual-price'>" . $product['product_actualprice'] . "</span>
                         </div>
                         <div class='progressbar-container'>
                             <div class='progressbar' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='" . $product['product_qty'] . "'></div>";
