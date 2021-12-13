@@ -157,7 +157,6 @@ nav .button-all-products {
 }
 
 nav > ul {
-    flex: 3;
     white-space: nowrap;
     gap: 1em;
     color: black;
@@ -277,19 +276,18 @@ nav > ul button {
                 opacity .5s ease;
 }
 .cart-items-num {
-    display: inline-block;
+    display: inline-flex;
     color: white;
-    font-size: calc(var(--font-size) * .8);
     margin-left: .3em;
     font-weight: bold;
     border-radius: 50%;
-    height: calc(var(--font-size) * 1.5);
-    width: calc(var(--font-size) * 1.5);
-    text-align: center;
-    padding: calc(var(--font-size) * 0.2);
+    height: 1.6em;
+    width: 1.6em;
     background-color: var(--dark-primary-color);
     box-shadow: var(--box-shadow);
-} /* All the calc()s makes it responsive */
+    justify-content: center;
+    align-items: center;
+}
 
 .menu-toggle {
     font-size: 2em;
