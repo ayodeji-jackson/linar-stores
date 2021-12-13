@@ -119,6 +119,7 @@ a.btn:hover {
 }
 .center {
     text-align: center;
+    justify-content: center;
 }
 
 body .disabled {
