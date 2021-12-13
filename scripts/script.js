@@ -12,7 +12,7 @@ const toggle = document.querySelector('.toggle');
 const loadingScreen = document.querySelector('.loading-screen');
 let itemsAlreadyInCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-document.querySelector('.product-section.carousel').style.height = products[0].offsetHeight + 30 + 'px';
+document.querySelector('.product-section.carousel').style.height = products[0].offsetHeight + 70 + 'px';
 
 document.body.onload = () => {
     loadingScreen.remove();
