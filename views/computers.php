@@ -6,7 +6,7 @@ $page = "Computers";
 
 if (isset($_GET['q'])) {
     $search_query = htmlentities(strip_tags(stripslashes($_GET['q'])));
-    $product_array = $product_table->search("linarStores.Product", "Name", $search_query, "AND Category = '$page'");
+    $product_array = $product_table->search("linarStores.Product", "Name", $search_query, "AND Product_Category = '$page'");
     $current_page = "Search Results for '$search_query' in $page";
 } else {
     $product_array = $product_table->readAll("linarStores.Product", "WHERE Product_Category = '$page'");
