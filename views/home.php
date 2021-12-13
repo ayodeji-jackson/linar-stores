@@ -79,7 +79,6 @@ $product_array_recent = $product_table->readAll("linarStores.Product", "ORDER BY
     </main>
     <?php require_once __DIR__ . "/../static/footer.html"; ?>
     <script src="/scripts/script.js"></script>
-    <script src="/flickity/flickity.pkgd.min.js"></script>
 </body>
 
 </html>
