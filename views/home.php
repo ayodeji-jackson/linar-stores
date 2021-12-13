@@ -44,7 +44,7 @@ $product_array_recent = $product_table->readAll("linarStores.Product", "ORDER BY
             ?>
         </section>
         <h1 class="section-heading">Newly Added <span class="right small-text"><a href='all-products'>View all Products</a></span></h1>
-        <section class="product-section carousel" data-flickity='{ "cellAlign": "left", "contain": true }'>
+        <section class="product-section carousel" data-flickity='{ "cellAlign": "left", "contain": true, "setGallerySize": false }'>
             <?php
 
             foreach ($product_array_recent as $product) {
