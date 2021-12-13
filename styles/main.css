@@ -1,10 +1,15 @@
 .hero {
     padding: 4em var(--horizontal-padding);
     background-color: black;
-    background-image: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.7)), url("/images/hero_image.jpg");
+    background-image: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.7)), url("/images/hero_image_large.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: clamp(350px, calc(400px + 20vw), 75vh);
+}
+@media (max-width: 48em) {
+    .hero {
+        background-image: linear-gradient(hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.7)), url("/images/hero_image_small.jpg");
+    }
 }
 
 .hero > * + * {
