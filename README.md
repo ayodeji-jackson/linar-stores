@@ -1,5 +1,5 @@
 <h2>Linar Stores</h2>
-<p>An IT e-store</p>
+<p>An IT e-store.</p>
 <p>Project for <a href="https://linar.ng/">Linar School of Media and ICT</a>.</p>
 
 <h3>Carousel</h3>
