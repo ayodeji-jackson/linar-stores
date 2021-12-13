@@ -27,11 +27,16 @@ $product_array_recent = $product_table->readAll("linarStores.Product", "ORDER BY
             <?php
 
             foreach ($category_array as $category) {
+                $category_name = $category['category_name'];
                 echo "<div class='category cell-carousel'>
-                        <img class='category-image' alt='" . $category['category_name'] . "' src='/images/" . $category['category_image_url'] . "' />
-                        <h3>" . $category['category_name'] . "</h3>
+                        <img class='category-image' alt='" . $category_name . "' 
+                            src='/images/" . strtolower($category_name) . "_small.jpg'
+                            srcset='/images/" . strtolower($category_name) . "_small.jpg 768w, 
+                                    /images/" . strtolower($category_name) . "_large.jpg 2560w' 
+                        />
+                        <h3>" . $category_name . "</h3>
                         <p>" . $category['category_description'] . "</p>
-                        <a href='" . strtolower($category['category_name']) . "' class='btn category-button btn-primary'><span class='button-text'>Shop Now</span></a>
+                        <a href='" . strtolower($category_name) . "' class='btn category-button btn-primary'><span class='button-text'>Shop Now</span></a>
                     </div>";
             }
             $category_array = NULL;
