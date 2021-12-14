@@ -11,4 +11,4 @@ RewriteRule ^(.+)$ index.php [QSA,L]
 
 ErrorDocument 403 /404
 
-RewriteRule ^(controllers|static|views) /404 [NC,R,L]
+# RewriteRule ^(controllers|static|views) /404 [NC,R,L]
