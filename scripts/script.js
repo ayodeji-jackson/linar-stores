@@ -17,8 +17,8 @@ document.body.onload = () => {
     document.body.classList.remove('loading');
 }
 
-if (document.querySelector('.product-section.carousel')) 
-    document.querySelector('.product-section.carousel').style.height = `calc(${products[0].offsetHeight}px + 1.5em)`;
+//if (document.querySelector('.product-section.carousel')) 
+//    document.querySelector('.product-section.carousel').style.height = `calc(${products[0].offsetHeight}px + 1.5em)`;
 
 toggle.onclick = slideDown;
 function slideDown(event) {
