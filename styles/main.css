@@ -22,7 +22,7 @@
 }
 .hero-main-text {
     font-size: calc(var(--font-size) + 1.4rem);
-    width: 50%;
+    width: 75vw%;
 }
 .hero-side-text {
     font-weight: 300;
