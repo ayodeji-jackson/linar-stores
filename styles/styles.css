@@ -140,6 +140,7 @@ body > footer {
     color: black;
     padding: var(--vertical-padding) var(--horizontal-padding);
     background-color: var(--lighter-primary-color);
+    margin-top: 2em;
 }
 footer > * + * {
     margin-top: 1em;
